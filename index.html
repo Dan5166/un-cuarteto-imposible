@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Cuarteto Imposible</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f5ead6;
+    --parchment-dark: #e8d5b0;
+    --ink: #2c1a0e;
+    --ink-light: #5c3d1e;
+    --red: #8b1a1a;
+    --gold: #c8922a;
+    --gold-light: #e8b84b;
+    --shadow: rgba(44, 26, 14, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: #2c1a0e;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, #3d2510 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, #1a0d05 0%, transparent 60%);
+    min-height: 100vh;
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem 5rem;
+  }
+
+  /* Book container */
+  .book {
+    max-width: 740px;
+    width: 100%;
+    position: relative;
+  }
+
+  /* Pages */
+  .page {
+    background: var(--parchment);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"),
+      linear-gradient(180deg, #f8eedd 0%, #f2e3c6 40%, #eedad8 100%);
+    border-radius: 4px 12px 12px 4px;
+    box-shadow:
+      -6px 0 12px rgba(0,0,0,0.4),
+      6px 0 18px rgba(0,0,0,0.25),
+      inset -3px 0 8px rgba(44,26,14,0.08),
+      inset 3px 0 6px rgba(255,255,255,0.3);
+    padding: 4rem 4.5rem 4rem 5rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .page.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Spine effect on left */
+  .page::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 40px;
+    background: linear-gradient(90deg,
+      rgba(44,26,14,0.15) 0%,
+      rgba(44,26,14,0.05) 40%,
+      transparent 100%);
+    border-right: 1px solid rgba(44,26,14,0.08);
+  }
+
+  /* Decorative corner */
+  .page::after {
+    content: '';
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 40px; height: 40px;
+    border-top: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    opacity: 0.4;
+  }
+
+  /* Cover page */
+  .cover {
+    text-align: center;
+    padding: 5rem 4rem 5rem 4.5rem;
+    border-radius: 4px 12px 12px 4px;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"),
+      linear-gradient(160deg, #f8eedd 0%, #eedfc0 50%, #e5d0a8 100%);
+    box-shadow:
+      -6px 0 12px rgba(0,0,0,0.4),
+      6px 0 18px rgba(0,0,0,0.25),
+      inset -3px 0 8px rgba(44,26,14,0.08),
+      inset 3px 0 6px rgba(255,255,255,0.3);
+    margin-bottom: 0.5rem;
+  }
+
+  .cover-ornament {
+    font-size: 2.2rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+
+  .cover-border {
+    border: 2px solid var(--gold);
+    border-radius: 2px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    margin: 0 auto;
+    max-width: 480px;
+  }
+
+  .cover-border::before, .cover-border::after {
+    content: '❧';
+    position: absolute;
+    font-size: 1.4rem;
+    color: var(--gold);
+    opacity: 0.6;
+  }
+  .cover-border::before { top: -14px; left: 50%; transform: translateX(-50%); background: var(--parchment); padding: 0 8px; }
+  .cover-border::after  { bottom: -14px; left: 50%; transform: translateX(-50%) rotate(180deg); background: var(--parchment); padding: 0 8px; }
+
+  .cover-subtitle {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.4rem, 6vw, 3.5rem);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+
+  .cover-place {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    color: var(--ink-light);
+    letter-spacing: 0.1em;
+    margin-top: 1.5rem;
+    font-style: italic;
+  }
+
+  /* Chapter headings */
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--red);
+    text-align: center;
+    margin: 0.5rem 0 2rem;
+    letter-spacing: 0.02em;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+
+  h2::after {
+    content: '— ✦ —';
+    display: block;
+    font-size: 0.85rem;
+    color: var(--gold);
+    margin-top: 0.6rem;
+    letter-spacing: 0.3em;
+    font-family: 'Crimson Pro', serif;
+  }
+
+  /* Character intro blocks */
+  .character {
+    margin: 0 0 1.8rem 0;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--gold);
+    position: relative;
+  }
+
+  .character-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--red);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* Paragraphs */
+  p {
+    font-size: 1.13rem;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 1.3rem;
+    text-align: justify;
+    font-weight: 300;
+  }
+
+  p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.8rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    margin: 0.08em 0.12em 0 0;
+    color: var(--red);
+  }
+
+  /* Dialogue */
+  .dialogue {
+    margin: 1.2rem 0;
+    padding: 0.8rem 1.2rem;
+    background: rgba(200, 146, 42, 0.07);
+    border-left: 2px solid var(--gold);
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .dialogue p {
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+
+  .dialogue p:last-child { margin-bottom: 0; }
+  .dialogue p::first-letter { font-size: 1.05rem; float: none; line-height: inherit; margin: 0; color: inherit; font-weight: inherit; }
+
+  /* Quote block */
+  blockquote {
+    margin: 2rem 1rem;
+    padding: 1.5rem 2rem;
+    background: rgba(139, 26, 26, 0.06);
+    border: 1px solid rgba(139,26,26,0.2);
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+  }
+
+  blockquote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--red);
+    opacity: 0.2;
+    position: absolute;
+    top: -20px; left: 10px;
+    line-height: 1;
+  }
+
+  blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--red);
+    margin: 0;
+    text-align: center;
+  }
+
+  blockquote p::first-letter { font-size: 1.15rem; float: none; line-height: inherit; margin: 0; color: var(--red); font-weight: 400; }
+
+  /* Moral / final lesson */
+  .moral {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(200,146,42,0.08), rgba(139,26,26,0.06));
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    margin-top: 1.5rem;
+  }
+
+  .moral p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-light);
+    text-align: center;
+    line-height: 1.9;
+    margin-bottom: 0.4rem;
+  }
+
+  .moral p::first-letter { font-size: 1.1rem; float: none; line-height: inherit; margin: 0; color: var(--ink-light); font-weight: inherit; }
+
+  .moral-ornament {
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  /* Section divider */
+  .divider {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.1rem;
+    letter-spacing: 0.4em;
+    margin: 2rem 0;
+    opacity: 0.6;
+  }
+
+  /* Page number */
+  .page-num {
+    text-align: center;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    opacity: 0.5;
+    margin-top: 2.5rem;
+    letter-spacing: 0.15em;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #1a0d05; }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+  /* Reading progress */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+    width: 0%;
+    transition: width 0.1s;
+    z-index: 100;
+  }
+
+  em { color: var(--ink-light); font-style: italic; }
+
+  @media (max-width: 600px) {
+    .page, .cover { padding: 2.5rem 1.8rem 2.5rem 2.2rem; }
+    p { font-size: 1.05rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="book">
+
+  <!-- COVER -->
+  <div class="cover page visible">
+    <div class="cover-ornament">⸻ ✦ ⸻</div>
+    <div class="cover-border">
+      <p class="cover-subtitle">Un cuento con enseñanza</p>
+      <h1>El Cuarteto<br>Imposible</h1>
+      <p class="cover-place">Villarreal del Asombro</p>
+    </div>
+    <div class="cover-ornament" style="margin-top:2rem; margin-bottom:0">⸻ ✦ ⸻</div>
+  </div>
+
+  <!-- PAGE 1: Los personajes -->
+  <div class="page">
+    <p>En un pequeño pueblo llamado <em>Villarreal del Asombro</em>, vivían cuatro hombres que la gente señalaba con el dedo cada vez que salían a la calle.</p>
+
+    <div class="character">
+      <span class="character-name">Franco</span>
+      <p style="margin-bottom:0">era tan monumental que cuando caminaba, los pájaros cambiaban de ruta aérea para no chocar con él. Los sismógrafos de la universidad registraban cada uno de sus pasos. Los niños del barrio decían que cuando Franco se sentaba en el parque, la Tierra giraba un poco más despacio. Él lo sabía, y a veces lo usaba como excusa para llegar tarde.</p>
+    </div>
+
+    <div class="character">
+      <span class="character-name">Carlos</span>
+      <p style="margin-bottom:0">era tan viejo que nadie recordaba haberlo visto joven. Algunos vecinos juraban que Carlos había conocido a los dinosaurios personalmente y que simplemente no le habían gustado. Tenía arrugas sobre las arrugas, y cuando parpadeaba, el sonido era como el de una puerta de madera antigua. Él decía que la vejez era solo <em>"experiencia acumulada con intereses"</em>.</p>
+    </div>
+
+    <div class="character">
+      <span class="character-name">Tornillo</span>
+      <p style="margin-bottom:0">tenía el cabello rizado, esponjoso y perfectamente circular, como sacado del salón de belleza de 1987, y una columna de acero inoxidable que los médicos le habían instalado tras un accidente legendario que él nunca terminaba de explicar bien. Caminaba perfectamente recto, con una postura que los militares envidiaban. Cada vez que llovía, decía que sentía el clima <em>"hasta los huesos... y más allá"</em>, señalándose la espalda con orgullo.</p>
+    </div>
+
+    <div class="character">
+      <span class="character-name">Felipe</span>
+      <p style="margin-bottom:0">era el femboy más extravagante que Villarreal había producido en siglos. Faldas plisadas, medias de colores, voz suave, gestos delicados como los de alguien que practica todo frente al espejo pero jura que no. Cada vez que entraba a una tienda, los dependientes no sabían cómo saludarlo, así que simplemente aplaudían nerviosamente. Felipe los dejaba aplaudir. Se lo merecía.</p>
+    </div>
+
+    <div class="page-num">— I —</div>
+  </div>
+
+  <!-- PAGE 2: El Desafío -->
+  <div class="page">
+    <h2>El Día del Desafío</h2>
+
+    <p>Un martes sin mayor gracia, el alcalde del pueblo publicó un aviso:</p>
+
+    <blockquote>
+      <p>Se necesitan cuatro voluntarios para rescatar al viejo molino del cerro. La estructura está cayendo y es patrimonio del pueblo. Se requiere fuerza, sabiduría, habilidad técnica y precisión. Habrá recompensa.</p>
+    </blockquote>
+
+    <p>Los cuatro, por razones distintas y sin conocerse entre sí, se presentaron. Cuando se vieron en la plaza, hubo un silencio incómodo de aproximadamente cuarenta y cinco segundos.</p>
+
+    <div class="dialogue">
+      <p>—Bien —dijo Carlos, finalmente, con su voz de pergamino antiguo—. Peores compañías he tenido. Sobreviví a la invención de la rueda, sobreviviré a esto.</p>
+      <p>Franco miró al grupo y suspiró, haciendo temblar una maceta cercana.</p>
+      <p>—¿Cuál es el plan?</p>
+    </div>
+
+    <p>Tornillo ya había sacado un papel y dibujaba con su espalda perfectamente vertical, como un arquitecto romano, el peinado inmóvil como si también fuera de metal. Felipe se acomodó las medias, se colgó una bolsa al hombro y dijo con voz tranquila:</p>
+
+    <div class="dialogue">
+      <p>—Yo traje las herramientas.</p>
+      <p>Los tres lo miraron.</p>
+      <p>—¿Qué? —dijo Felipe—. ¿Alguien más las trajo?</p>
+      <p>Silencio.</p>
+      <p>—Exacto.</p>
+    </div>
+
+    <div class="page-num">— II —</div>
+  </div>
+
+  <!-- PAGE 3: El Cerro -->
+  <div class="page">
+    <h2>El Cerro</h2>
+
+    <p>El camino al molino era estrecho, empinado y lleno de piedras.</p>
+
+    <p>Franco avanzaba con dificultad por el sendero angosto, pero cada vez que había una roca enorme bloqueando el paso, simplemente la empujaba con el hombro y el camino quedaba libre para todos. Sin quejarse. Sin pedir reconocimiento. Solo empujaba y seguía.</p>
+
+    <p>Carlos caminaba lento, pero conocía cada planta del cerro. <em>"Ese arbusto tiene espinas, rodéenlo por la izquierda"</em>, decía. <em>"Ese suelo suena hueco, no pasen por ahí."</em> Había subido ese cerro en otra época, cuando el molino se construyó, y su memoria era un mapa perfecto grabado en algún lugar entre las arrugas.</p>
+
+    <p>Tornillo, con su columna de metal, no podía agacharse ni doblarse, pero tampoco se cansaba de cargar el peso del equipo. Su postura era tan firme que usaron su espalda como superficie para medir niveles y ángulos con una plomada. Era, literalmente, el instrumento de precisión del grupo.</p>
+
+    <p>Felipe trepaba con una agilidad sorprendente. Subía a los lugares donde nadie más podía llegar, ataba cuerdas, pasaba por huecos estrechos, revisaba vigas desde ángulos imposibles. Lo hacía con una gracia que parecía coreografiada. En un momento casi resbala, pero se sostuvo con una mano y se acomodó el cabello con la otra.</p>
+
+    <div class="dialogue">
+      <p>Tornillo lo miró.</p>
+      <p>—¿Cómo hiciste eso?</p>
+      <p>—Práctica —dijo Felipe, sin más.</p>
+    </div>
+
+    <div class="page-num">— III —</div>
+  </div>
+
+  <!-- PAGE 4: El Molino -->
+  <div class="page">
+    <h2>El Molino</h2>
+
+    <p>Cuando llegaron, el molino estaba inclinado peligrosamente. Una de las vigas maestras había cedido y toda la estructura crujía con el viento como una queja muy antigua.</p>
+
+    <div class="dialogue">
+      <p>—Necesitamos apuntalar esa viga desde abajo —dijo Tornillo, analizando la estructura—, pero el espacio interior es mínimo. Cincuenta centímetros, tal vez menos.</p>
+      <p>—Yo no entro ahí —admitió Franco con honestidad absoluta—. Físicamente. No entraré.</p>
+      <p>—Yo podría intentarlo —dijo Carlos—, pero mis rodillas tienen una opinión distinta y llevan ganando desde 1987.</p>
+      <p>—Yo tampoco puedo doblarme para pasar —admitió Tornillo, señalándose la espalda de metal con resignación—. Diseño del fabricante.</p>
+      <p>—Yo entro —dijo Felipe, ya agachándose para calcular el espacio—. Sin problema.</p>
+    </div>
+
+    <p>Los tres lo miraron con una mezcla de alivio y admiración que ninguno verbalizó del todo.</p>
+
+    <div class="dialogue">
+      <p>—Necesito que alguien me indique el ángulo exacto desde afuera —dijo Felipe—, y que alguien sostenga la estructura mientras trabajo.</p>
+      <p>—El ángulo lo doy yo —dijo Tornillo.</p>
+      <p>—La estructura la sostengo yo —dijo Franco.</p>
+      <p>—Y yo —dijo Carlos, apoyando su bastón en el suelo con solemnidad—, les digo exactamente qué pasará si lo hacen mal. Llevo viendo molinos caer desde antes de que ninguno de ustedes naciera.</p>
+    </div>
+
+    <div class="page-num">— IV —</div>
+  </div>
+
+  <!-- PAGE 5: El rescate -->
+  <div class="page">
+    <p>Franco sostuvo la pared exterior como si fuera una columna adicional, usando su masa como contrapeso natural. Carlos dirigió desde atrás con instrucciones precisas, señalando con el bastón sin moverse más de lo necesario. Tornillo se plantó como un teodolito humano, completamente vertical, indicando ángulos con el brazo extendido.</p>
+
+    <p>Y Felipe entró al hueco. Pequeño, oscuro, lleno de polvo de siglos. Nadie lo veía trabajar. Solo se escuchaban sus movimientos, el roce de la madera, algún golpe calculado, y de vez en cuando:</p>
+
+    <div class="dialogue">
+      <p>—Tornillo, ¿más a la derecha o sigo así?</p>
+      <p>—Tres centímetros a la derecha.</p>
+      <p>—¿Carlos, esto aguanta?</p>
+      <p>—Si lo haces como te digo, sí. Si improvisar, no.</p>
+      <p>—Franco, no te muevas.</p>
+      <p>—No me muevo ni aunque quiera —respondió Franco desde afuera.</p>
+    </div>
+
+    <p>El molino crujió. Una vez. Dos veces. Y luego quedó quieto. Completamente quieto.</p>
+
+    <p>Felipe salió del hueco cubierto de polvo, con el cabello levemente arruinado, lo cual era, según él mismo declaró, <em>"imperdonable pero necesario"</em>.</p>
+
+    <div class="divider">⸻ ✦ ⸻</div>
+
+    <p>La viga estaba en su lugar. El molino, de pie.</p>
+
+    <div class="page-num">— V —</div>
+  </div>
+
+  <!-- PAGE 6: La vuelta y la enseñanza -->
+  <div class="page">
+    <h2>La Vuelta al Pueblo</h2>
+
+    <p>Bajaron en silencio, ese silencio cómodo que solo ocurre entre personas que han hecho algo real juntas. Un silencio que no necesita llenarse.</p>
+
+    <p>En la plaza, la gente los miró llegar como siempre los había mirado: con curiosidad, con alguna burla flotando en el ambiente, con esa incomodidad que produce lo que no encaja en el molde esperado. Pero algo había cambiado. No en el pueblo. En ellos. En cómo se miraban entre sí.</p>
+
+    <p>Carlos habló primero, como correspondía al más antiguo:</p>
+
+    <div class="dialogue">
+      <p>—He vivido suficiente para saber que la gente siempre mirará lo que sobresale. Lo raro, lo distinto, lo que no encaja. Lo mirarán, lo señalarán, a veces se reirán. —Hizo una pausa larga—. Y lo necesitarán cuando las cosas se pongan difíciles.</p>
+    </div>
+
+    <p>Franco asintió despacio, y tres palomas alzaron vuelo por la vibración. Tornillo se mantuvo erguido, que era lo único que su espalda le permitía hacer, y dijo:</p>
+
+    <div class="dialogue">
+      <p>—Lo que parece un defecto desde afuera suele ser exactamente la herramienta que falta.</p>
+    </div>
+
+    <p>Felipe se sacudió el polvo de la falda, se acomodó el cabello con dos dedos, y añadió:</p>
+
+    <div class="dialogue">
+      <p>—Yo llevo años siendo exactamente lo que soy. Ya aprendí que el problema nunca fue mío.</p>
+    </div>
+
+    <div class="page-num">— VI —</div>
+  </div>
+
+  <!-- PAGE 7: La enseñanza final -->
+  <div class="page">
+    <h2>La Enseñanza</h2>
+
+    <p>Esa noche, en la única taberna del pueblo, alguien preguntó cómo lo habían logrado. Franco respondió, simplemente, con esa calma que da el peso propio:</p>
+
+    <blockquote>
+      <p>Ninguno de nosotros servía para todo. Pero cada uno servía para algo que los demás no podían hacer. Eso fue suficiente.</p>
+    </blockquote>
+
+    <p>Tornillo levantó su vaso con la espalda recta. Carlos lo levantó con la mano temblorosa pero firme. Felipe lo levantó con elegancia. Y Franco lo levantó con cuidado, porque la última vez que no tuvo cuidado, rompió el vaso, la mesa y parte del orgullo del tabernero.</p>
+
+    <p>El molino siguió girando por muchos años más. Y en Villarreal del Asombro, cuando alguien llegaba sintiéndose demasiado raro, demasiado distinto, demasiado <em>cualquier cosa</em>, los viejos del pueblo contaban la historia de los cuatro. Y la gente escuchaba.</p>
+
+    <div class="divider">✦</div>
+
+    <div class="moral">
+      <span class="moral-ornament">❧</span>
+      <p>Lo que el mundo llama rareza,</p>
+      <p>la vida suele llamar solución.</p>
+      <p>El problema no es ser diferente.</p>
+      <p>El problema es creer que para pertenecer,</p>
+      <p>hay que ser igual.</p>
+    </div>
+
+    <div class="page-num">— VII · Fin —</div>
+  </div>
+
+</div>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+  });
+
+  // Page reveal on scroll
+  const pages = document.querySelectorAll('.page:not(.visible)');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  pages.forEach(page => observer.observe(page));
+</script>
+</body>
+</html>
