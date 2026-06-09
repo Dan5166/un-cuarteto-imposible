@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capítulo 0 — El Hombre que Dijo "Sí, No" Demasiadas Veces</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f5ead6;
+    --ink: #2c1a0e;
+    --ink-light: #5c3d1e;
+    --red: #8b1a1a;
+    --gold: #c8922a;
+    --dark-bg: #1a0d05;
+    --empire-purple: #3b1f5e;
+    --empire-gold: #d4aa3a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--dark-bg);
+    background-image:
+      radial-gradient(ellipse at 15% 15%, #2c1a0e 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 85%, #0d0505 0%, transparent 55%),
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(200,146,42,0.015) 40px,
+        rgba(200,146,42,0.015) 41px
+      );
+    min-height: 100vh;
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem 6rem;
+  }
+
+  .book {
+    max-width: 760px;
+    width: 100%;
+  }
+
+  /* ── PÁGINAS ── */
+  .page {
+    background: var(--parchment);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+      linear-gradient(170deg, #faf0e0 0%, #f2e3c4 45%, #ecdac0 100%);
+    border-radius: 4px 14px 14px 4px;
+    box-shadow:
+      -8px 0 16px rgba(0,0,0,0.5),
+      8px 0 20px rgba(0,0,0,0.2),
+      inset -4px 0 10px rgba(44,26,14,0.07),
+      inset 4px 0 8px rgba(255,255,255,0.25);
+    padding: 4rem 4.5rem 3.5rem 5rem;
+    margin-bottom: 0.6rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+
+  .page.visible { opacity: 1; transform: translateY(0); }
+
+  /* lomo */
+  .page::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 42px;
+    background: linear-gradient(90deg,
+      rgba(44,26,14,0.18) 0%,
+      rgba(44,26,14,0.06) 50%,
+      transparent 100%);
+    border-right: 1px solid rgba(44,26,14,0.07);
+  }
+
+  /* esquina decorativa */
+  .page::after {
+    content: '';
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 36px; height: 36px;
+    border-top: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    opacity: 0.35;
+  }
+
+  /* ── PORTADA ── */
+  .cover {
+    text-align: center;
+    padding: 5rem 4rem;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+      linear-gradient(155deg, #faf0e0 0%, #edddbb 55%, #e3d0a8 100%);
+    border-radius: 4px 14px 14px 4px;
+    box-shadow:
+      -8px 0 16px rgba(0,0,0,0.5),
+      8px 0 20px rgba(0,0,0,0.2),
+      inset -4px 0 10px rgba(44,26,14,0.07),
+      inset 4px 0 8px rgba(255,255,255,0.25);
+    margin-bottom: 0.6rem;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .cover.visible { opacity: 1; transform: translateY(0); }
+
+  .cover-ornament {
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 0.5em;
+    margin-bottom: 2rem;
+    opacity: 0.65;
+  }
+
+  .cover-note {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-light);
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+
+  .cover-border {
+    border: 2px solid var(--gold);
+    padding: 2.5rem 2rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+
+  .cover-border::before {
+    content: '❧';
+    position: absolute;
+    top: -14px; left: 50%;
+    transform: translateX(-50%);
+    background: #f0e0c4;
+    padding: 0 10px;
+    font-size: 1.3rem;
+    color: var(--gold);
+  }
+  .cover-border::after {
+    content: '❧';
+    position: absolute;
+    bottom: -14px; left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    background: #f0e0c4;
+    padding: 0 10px;
+    font-size: 1.3rem;
+    color: var(--gold);
+  }
+
+  .cover-chapter {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .cover-sub {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-light);
+    margin-top: 1rem;
+  }
+
+  /* ── TÍTULOS DE SECCIÓN ── */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--red);
+    text-align: center;
+    margin: 0.5rem 0 2rem;
+    padding-bottom: 0.8rem;
+    position: relative;
+  }
+
+  h2::after {
+    content: '— ✦ —';
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-top: 0.5rem;
+    letter-spacing: 0.35em;
+  }
+
+  /* ── PÁRRAFOS ── */
+  p {
+    font-size: 1.12rem;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 1.3rem;
+    text-align: justify;
+    font-weight: 300;
+  }
+
+  p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.6rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--red);
+  }
+
+  /* ── PERSONAJES ── */
+  .character {
+    margin: 0 0 1.8rem;
+    padding-left: 1.2rem;
+    border-left: 3px solid var(--gold);
+  }
+
+  .character-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--red);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ── DIÁLOGO ── */
+  .dialogue {
+    margin: 1.2rem 0;
+    padding: 0.9rem 1.3rem;
+    background: rgba(200,146,42,0.06);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+
+  .dialogue p {
+    margin-bottom: 0.5rem;
+    font-size: 1.05rem;
+  }
+  .dialogue p:last-child { margin-bottom: 0; }
+  .dialogue p::first-letter,
+  .cover-note::first-letter {
+    font-size: inherit; float: none;
+    line-height: inherit; margin: 0;
+    color: inherit; font-weight: inherit;
+  }
+
+  /* ── MULETILLA / ONOMATOPEYA ── */
+  .plop {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 0.82em;
+    color: var(--ink-light);
+    opacity: 0.65;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CITA / BLOCKQUOTE ── */
+  blockquote {
+    margin: 1.8rem 0.8rem;
+    padding: 1.4rem 1.8rem;
+    background: rgba(139,26,26,0.05);
+    border: 1px solid rgba(139,26,26,0.18);
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+  }
+
+  blockquote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--red);
+    opacity: 0.15;
+    position: absolute;
+    top: -18px; left: 8px;
+    line-height: 1;
+  }
+
+  blockquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--red);
+    margin: 0;
+    text-align: center;
+  }
+
+  blockquote p::first-letter {
+    font-size: 1.1rem; float: none;
+    line-height: inherit; margin: 0;
+    color: var(--red); font-weight: 400;
+  }
+
+  /* ── ESTATUA / INSCRIPCIÓN ── */
+  .inscription {
+    margin: 1.8rem auto;
+    max-width: 420px;
+    padding: 1.8rem 2rem;
+    background: linear-gradient(135deg, rgba(59,31,94,0.08), rgba(212,170,58,0.08));
+    border: 2px solid var(--empire-gold);
+    border-radius: 6px 6px 2px 2px;
+    text-align: center;
+    position: relative;
+  }
+
+  .inscription::before {
+    content: '▲';
+    display: block;
+    font-size: 1.5rem;
+    color: var(--empire-gold);
+    margin-bottom: 0.8rem;
+    opacity: 0.7;
+  }
+
+  .inscription-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--empire-purple);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .inscription p {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--empire-purple);
+    opacity: 0.85;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    line-height: 1.6;
+  }
+  .inscription p::first-letter {
+    font-size: inherit; float: none;
+    line-height: inherit; margin: 0;
+    color: inherit; font-weight: inherit;
+  }
+
+  /* ── CARTEL BUSCADO ── */
+  .wanted {
+    margin: 1.8rem auto;
+    max-width: 380px;
+    padding: 1.5rem 1.8rem;
+    background: #f5e8c8;
+    border: 3px solid #8b6914;
+    border-radius: 3px;
+    text-align: center;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.25);
+    transform: rotate(-1.2deg);
+    position: relative;
+  }
+
+  .wanted::before {
+    content: '★ ★ ★';
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: #8b6914;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+  }
+
+  .wanted-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #5c1a1a;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    border-top: 2px solid #8b6914;
+    border-bottom: 2px solid #8b6914;
+    padding: 0.4rem 0;
+    margin-bottom: 0.8rem;
+  }
+
+  .wanted p {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.92rem;
+    color: #3a1a1a;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .wanted p::first-letter {
+    font-size: inherit; float: none;
+    line-height: inherit; margin: 0;
+    color: inherit; font-weight: inherit;
+  }
+
+  .wanted-footer {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    color: #8b6914;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.8rem;
+    display: block;
+    border-top: 1px solid #8b6914;
+    padding-top: 0.5rem;
+  }
+
+  /* ── MORAL ── */
+  .moral {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(200,146,42,0.07), rgba(139,26,26,0.05));
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    margin-top: 1.5rem;
+  }
+
+  .moral p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-light);
+    text-align: center;
+    line-height: 2;
+    margin-bottom: 0;
+  }
+  .moral p::first-letter {
+    font-size: inherit; float: none;
+    line-height: inherit; margin: 0;
+    color: inherit; font-weight: inherit;
+  }
+
+  .moral-ornament {
+    font-size: 1.2rem;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  /* ── DIVISORES ── */
+  .divider {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: 0.5em;
+    margin: 1.8rem 0;
+    opacity: 0.55;
+  }
+
+  /* ── NÚM. DE PÁGINA ── */
+  .page-num {
+    text-align: center;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.82rem;
+    color: var(--ink-light);
+    opacity: 0.45;
+    margin-top: 2.5rem;
+    letter-spacing: 0.15em;
+  }
+
+  em { color: var(--ink-light); font-style: italic; }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--red), var(--empire-purple));
+    width: 0%;
+    transition: width 0.1s;
+    z-index: 100;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-track { background: #0d0505; }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+  /* ── PORTADA: LÁMINA DE PERSONAJES ── */
+  .cover-art {
+    margin: 2.5rem auto 0;
+    max-width: 560px;
+  }
+  .cover-art img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid rgba(44,26,14,0.25);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3), inset 0 0 0 4px rgba(245,234,214,0.45);
+  }
+  .cover-art figcaption {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--ink-light);
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-top: 0.8rem;
+  }
+  .cover-art figcaption::first-letter { font-size: inherit; }
+
+  /* ── ILUSTRACIÓN ── */
+  .illustration {
+    margin: 0 -1.5rem 2.5rem;
+    text-align: center;
+  }
+  .illustration img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid rgba(44,26,14,0.2);
+    box-shadow: 0 4px 14px rgba(44,26,14,0.25), inset 0 0 0 4px rgba(245,234,214,0.5);
+  }
+  .illustration figcaption {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--ink-light);
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-top: 0.7rem;
+  }
+
+  /* ── CARAS EN DIÁLOGO ── */
+  .speech {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin: 0.75rem 0;
+  }
+  .speech .face {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 2px solid var(--gold);
+    box-shadow: 0 2px 6px rgba(44,26,14,0.18);
+    margin-top: 0.15rem;
+    background: #e8d5b0;
+  }
+  .speech p { margin: 0 !important; }
+  .speech p::first-letter { font-size: inherit; float: none; line-height: inherit; margin: 0; color: inherit; font-weight: inherit; }
+  .narration { margin: 0.5rem 0 !important; opacity: 0.8; }
+
+  @media (max-width: 600px) {
+    .page, .cover { padding: 2.5rem 1.8rem 2.5rem 2.2rem; }
+    p { font-size: 1.04rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="book">
+
+  <!-- PORTADA -->
+  <div class="cover page">
+    <div class="cover-ornament">⸻ ✦ ⸻</div>
+    <p class="cover-note">Nota del editor: Este capítulo ocurre antes del capítulo anterior, después del próximo, y simultáneamente con todos. El autor no se disculpa.</p>
+    <div class="cover-border">
+      <span class="cover-chapter">Capítulo 0 &nbsp;·&nbsp; o quizás 7 &nbsp;·&nbsp; o quizás 3</span>
+      <h1>El Hombre que Dijo<br>"Sí, No"<br>Demasiadas Veces</h1>
+      <p class="cover-sub">Villarreal del Asombro &nbsp;·&nbsp; Toda época conocida</p>
+    </div>
+
+    <figure class="cover-art">
+      <img loading="lazy" decoding="async" src="marcelo%20y%20el%20peruano.webp" alt="Concept art de Marcelo y el Peruano, personajes principales del Capítulo 0">
+      <figcaption>Marcelo &nbsp;·&nbsp; El Peruano — personajes principales</figcaption>
+    </figure>
+
+    <div class="cover-ornament" style="margin-top:1.8rem;margin-bottom:0">⸻ ✦ ⸻</div>
+  </div>
+
+  <!-- I: LA MULETILLA -->
+  <div class="page">
+    <h2>I. La Muletilla</h2>
+
+    <p>Antes de que el molino cayera, antes de que Franco empujara ninguna roca, antes incluso de que Villarreal del Asombro tuviera nombre, hubo un hombre conocido en la universidad simplemente como <em>el Peruano</em>. No porque hubiera algo malo en serlo. Sino porque era el único.</p>
+
+    <p>El Peruano tenía una muletilla. Una sola. Pequeña. Inofensiva, en apariencia. Al terminar cada frase, cada concepto, cada explicación, decía: <em>"...sí, no?"</em></p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—El modelo de regresión lineal asume homocedasticidad en los residuos, <strong>sí, no?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—La entropía cruzada mide la distancia entre distribuciones de probabilidad, <strong>sí, no?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—El overfitting ocurre cuando el modelo memoriza el ruido en lugar de aprender el patrón, <strong>sí, no?</strong></p></div>
+    </div>
+
+    <p>Sus alumnos lo adoraban. Sus colegas lo toleraban. El universo, sin embargo, llevaba años tomando nota. Porque <em>"sí, no"</em> no es solo una muletilla. Es una contradicción ontológica. Es afirmar y negar simultáneamente. Es el gato de Schrödinger convertido en tic verbal. Y el Peruano la había dicho, según cálculos conservadores, unas <strong>cuatrocientas mil veces</strong>.</p>
+
+    <p>La gota que rebasó el vaso fue un martes de octubre, en medio de una clase sobre modelos de series de tiempo.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—El futuro puede predecirse con suficiente data histórica —dijo, mirando la pantalla—, <strong>sí, no?</strong></p></div>
+    </div>
+
+    <p>El universo, que llevaba paciencia acumulada desde el Big Bang, simplemente dijo: <em>basta</em>. Se abrió un pliegue en el tiempo directamente debajo de la silla del Peruano. Y el Peruano, con su café a medio tomar y el modelo ARIMA abierto en pantalla, desapareció del año presente y cayó, sin mayor ceremonia, en el pasado.</p>
+
+    <div class="page-num">— I —</div>
+  </div>
+
+  <!-- II: EL COLEGA -->
+  <div class="page">
+    <h2>II. El Colega</h2>
+
+    <p>El Peruano tenía un colega en la universidad.</p>
+
+    <div class="character">
+      <span class="character-name">Marcelo</span>
+      <p style="margin-bottom:0">profesor de Habilidades Blandas para el Entorno Laboral —o algún nombre igualmente vago según el semestre, el tipo de ramo donde la respuesta correcta siempre es una metáfora y nadie reprueba porque reprobar requeriría criterios objetivos— era conocido por dos cosas: su barba de profeta del Antiguo Testamento, que nadie recordaba haber visto crecer porque parecía haber existido desde siempre, y su método pedagógico completamente inaceptable desde cualquier perspectiva institucional.</p>
+    </div>
+
+    <p>Marcelo no tenía oficina. No tenía, en rigor, domicilio fijo conocido. Lo que sí tenía era un olfato extraordinario para los edificios vacíos. Cuando un departamento quedaba desocupado entre arrendatarios, Marcelo entraba. Se sentaba con su laptop, conectaba el celular como hotspot, y hacía sus clases online desde ahí. Siempre <strong>con la cámara encendida</strong>. Era su principio más inamovible.</p>
+
+    <p>Sus clases comenzaban invariablemente igual, sin importar el living, el barrio, ni —como se descubriría después— el siglo:</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Hoy veremos propuesta de valor. ¿Qué vende Starbucks? No vende café. Vende <strong>experiencia</strong>. ¿Ya?</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—¿Qué vende Apple? No vende tecnología. Vende <strong>pertenencia</strong>. <span class="plop">—CLOP—</span> ¿Ya?</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—¿Qué vende un museo? No vende entradas. Vende <strong>cultura</strong>. ¿Ya?</p></div>
+    </div>
+
+    <p>Un alumno levantó la mano una vez y preguntó qué vendía una carnicería. Marcelo lo miró en silencio durante cuatro segundos completos.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Vende <strong>tradición</strong>. <span class="plop">—PLOP—</span> ¿Ya? <strong>Franco</strong>, empieza tú. ¿Ya?</p></div>
+    </div>
+
+    <p>Siempre Franco primero. Era un ritual tan arraigado que los alumnos habían dejado de preguntarse por qué. En toda lista de alumnos, en todo ejercicio, en toda dinámica participativa: Franco primero. Aunque Franco no estuviera matriculado. Aunque Franco hubiera reprobado. Aunque Franco, en algunas ocasiones, ni siquiera existiera.</p>
+
+    <div class="dialogue">
+      <p class="narration">—¿Y si Franco no está, profe? <em>(un alumno)</em></p>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Entonces esperamos un momento. <span class="plop">—clop—</span> <strong>¿Ya?</strong></p></div>
+    </div>
+
+    <div class="page-num">— II —</div>
+  </div>
+
+  <!-- III: LOS BOTS Y LA RASURADORA -->
+  <div class="page">
+    <h2>III. Los Bots y la Rasuradora</h2>
+
+    <p>El tema de los bots era otro asunto enteramente. Había ocurrido dos semestres atrás, en una clase sobre marca personal, cuando un participante de nombre impronunciable —una cadena de números y letras mayúsculas— entró a la sesión y comenzó a escribir en el chat. Primero comentarios sin sentido. Luego insultos. Específicamente, insultos dirigidos a la metodología de Marcelo, a su barba, y a una decisión pedagógica que había tomado en 2019 y que el bot, inexplicablemente, conocía.</p>
+
+    <p>Marcelo intentó expulsarlo. El bot reentró. Lo expulsó de nuevo. Reentró con otro nombre. La clase entera observó a su profesor entrar en un estado que solo puede describirse como <em>guerra total declarada contra una entidad sin cuerpo</em>.</p>
+
+    <p>Desde ese día, Marcelo tenía una política de tolerancia cero con cualquier cosa que oliera a bot. Respuestas demasiado rápidas: sospecha. Sintaxis demasiado perfecta: sospecha. Ausencia de muletillas o errores de tipeo: sospecha grave.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Los humanos nos equivocamos. <span class="plop">—CLOP—</span> El que no se equivoca, no es de fiar. <strong>¿Ya?</strong></p></div>
+    </div>
+
+    <p>Su única debilidad conocida era la proximidad al jabón o a una rasuradora. No era fobia exactamente. Era que su sistema nervioso las procesaba como una amenaza existencial. Al ver una rasuradora, Marcelo se ponía visiblemente tenso, miraba hacia los lados como animal acorralado, y en más de una ocasión había abandonado un departamento perfectamente bueno simplemente porque el baño tenía una maquinita de afeitar sobre el lavamanos.</p>
+
+    <div class="dialogue">
+      <p class="narration">—Profe, ¿por qué se fue tan rápido del departamento del martes? <em>(un alumno)</em></p>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Incompatibilidad ambiental. <span class="plop">—PLOP—</span> <strong>¿Ya?</strong></p></div>
+    </div>
+
+    <div class="page-num">— III —</div>
+  </div>
+
+  <!-- IV: CÓMO SE ENCONTRARON -->
+  <div class="page">
+    <h2>IV. Cómo Se Encontraron</h2>
+
+    <p>El Peruano aterrizó en Villarreal del Asombro un martes que no era de su siglo, con el café todavía tibio y el modelo ARIMA abierto en pantalla, mirando el campanario de un pueblo que no reconocía.</p>
+
+    <p>Marcelo aterrizó diez minutos después, a tres metros de distancia, cayendo hacia atrás desde una pared que había decidido no ser sólida. Lo que no sabía era que ese edificio tenía ochenta y cuatro años, y que en el cuarto piso un albañil distraído había instalado una pared con un error de dos grados que nadie había corregido. Dos grados que, acumulados durante ochenta y cuatro años de gravedad y humedad, habían creado una geometría espacial técnicamente imposible en el rincón noreste del living. Marcelo puso su laptop exactamente ahí. La cámara siguió encendida durante todo el proceso.</p>
+
+    <p>Un alumno escribió en el chat: <em>"¿nuevo fondo virtual, profe?"</em></p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—No. <span class="plop">—clop—</span> <strong>¿Ya?</strong></p></div>
+    </div>
+
+    <p>Se miraron desde el suelo los dos. El Peruano procesó la situación con la velocidad de alguien acostumbrado a que el universo lo traicione. Marcelo procesó la situación con la velocidad de alguien que acaba de caer al piso y tiene clase en cinco minutos.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—¿Tú también? —dijo el Peruano.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—¿También qué? El piso estaba mal instalado. <span class="plop">—PLOP—</span> <strong>¿Ya?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Marcelo. Estamos en el pasado.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—El departamento es antiguo, sí.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—No. El pasado. El siglo pasado. Ese campanario tiene trescientos años.</p></div>
+    </div>
+
+    <p>Marcelo miró el campanario. Miró al Peruano. Miró la laptop. Miró el campanario de nuevo.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Igual hay señal —dijo finalmente—. <span class="plop">—clop—</span> <strong>¿Ya?</strong></p></div>
+    </div>
+
+    <div class="page-num">— IV —</div>
+  </div>
+
+  <!-- V: LA INVESTIGACIÓN -->
+  <div class="page">
+    <h2>V. La Investigación</h2>
+
+    <p>Durante los días siguientes, mientras intentaban entender cómo volver, el Peruano y Marcelo investigaron juntos con la metodología disponible: observación, café que no reconocían, y mucha discusión. El Peruano documentaba. Marcelo daba clase desde distintos rincones del pueblo, siempre con cámara, siempre con el micrófono demasiado cerca.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Hoy veremos adaptación al cambio. ¿Qué vende la incertidumbre? No vende miedo. Vende <strong>oportunidad</strong>. <span class="plop">—CLOP—</span> <strong>Franco</strong>, empieza tú. ¿Ya?</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Marcelo —dijo el Peruano, levantando la vista de sus notas—. Necesito que te concentres.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Estoy concentrado. Tengo cuarenta alumnos esperando. <span class="plop">—plop—</span> <strong>¿Ya?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Tus alumnos están en el futuro.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Y yo les estoy enseñando desde el pasado. Es innovación pedagógica.</p></div>
+    </div>
+
+    <p>La hipótesis que el Peruano había construido era la siguiente: Marcelo tenía una sensibilidad espaciotemporal inconsciente que le permitía detectar vacíos no solo en el espacio sino en el tiempo. Los departamentos que encontraba no eran solo departamentos desocupados. Eran puntos de intersección entre épocas, lugares donde el tiempo había dejado una habitación libre.</p>
+
+    <p>Marcelo escuchó esto con atención. Luego dijo:</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—O sea que soy bueno encontrando departamentos.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—En cualquier época de la historia humana.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Qué bueno. <span class="plop">—PLOP—</span> ¿Ya?</p></div>
+    </div>
+
+    <p>El Peruano cerró su cuaderno de notas con la resignación de un hombre que ha explicado regresión logística a una pared. Lo que prefirió no mencionar —porque era un dato que podía esperar— era que él mismo trabajaba con inteligencia artificial. Sus modelos predictivos, sus pipelines de datos, sus sistemas de análisis: todo construido con y para las mismas entidades que Marcelo consideraba el enemigo. Eso, pensó el Peruano, podía guardárselo. Por ahora.</p>
+
+    <div class="page-num">— V —</div>
+  </div>
+
+  <!-- VI: TORNILLO -->
+  <div class="page">
+    <h2>VI. Tornillo</h2>
+
+    <p>Fue en esa semana de investigación cuando vieron al cuarteto por primera vez. Franco, Carlos, Tornillo y Felipe subían hacia el molino del cerro con la determinación tranquila de quien tiene algo que hacer. El Peruano los observó desde lejos con la sensación extraña de estar viendo algo importante sin entender todavía por qué.</p>
+
+    <p>Marcelo los observó también. Se detuvo en Tornillo. La postura. El peinado inmóvil. La precisión con que señalaba ángulos y distancias. La columna que no cedía bajo ninguna condición.</p>
+
+    <p>Marcelo entrecerró los ojos.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Ese es un bot —dijo.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—No es un bot —dijo el Peruano—. Tiene una columna de metal. Es una condición médica.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Los bots también tienen estructuras rígidas.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Marcelo.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Nunca se equivoca. Lo he estado observando. Tres días y ni un solo error. <span class="plop">—CLOP—</span> ¿Ya?</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Hay personas que son muy precisas. Se llaman profesionales.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Se llaman <strong>bots</strong>. <span class="plop">—PLOP—</span> ¿Ya?</p></div>
+    </div>
+
+    <p>El Peruano intentó cambiar el tema. Marcelo volvió al tema. Durante dos días el ciclo se repitió con la constancia de un proceso batch mal configurado, que era exactamente la analogía que el Peruano usó y que Marcelo no entendió porque era de un ramo útil.</p>
+
+    <div class="page-num">— VI —</div>
+  </div>
+
+  <!-- VII: LA PELEA -->
+  <div class="page">
+    <h2>VII. La Pelea</h2>
+
+    <p>Ocurrió una tarde, cuando el cuarteto bajaba del cerro después de una inspección al molino. Marcelo los interceptó en la plaza con la laptop abierta, la cámara encendida, y la energía específica de alguien que lleva días esperando tener razón. Se plantó frente a Tornillo.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Buenos días.</strong> <span class="plop">—PLOP—</span> Necesito que cometas un error. Uno solo. Para confirmar que eres humano. <strong>¿Ya?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="tornillo%20cara.webp" alt="Tornillo"><p>—Una vez calculé mal un ángulo de cinco grados —dijo Tornillo.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—¿Y?</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="tornillo%20cara.webp" alt="Tornillo"><p>—Lo corregí.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Bot.</strong> <span class="plop">—CLOP—</span> <strong>¿Ya?</strong></p></div>
+    </div>
+
+    <p>Franco intervino con la calma de alguien cuya mera presencia física ya es un argumento. Los ojos de Marcelo se iluminaron con el reflejo condicionado de años de pedagogía.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Franco.</strong> Tú primero. ¿Puedes confirmar que ese hombre comete errores? <strong>¿Ya?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="franco%20cara.webp" alt="Franco"><p>—Claro que comete errores —dijo Franco—. Todos cometemos errores.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Exacto.</strong> <span class="plop">—PLOP—</span> Entonces que lo demuestre.</p></div>
+    </div>
+
+    <p>Tornillo, que había estado procesando la situación con su habitual precisión, llegó a una conclusión simple: este hombre no iba a detenerse. Y Tornillo, a diferencia de lo que Marcelo creía, sí tenía un límite.</p>
+
+    <p>Marcelo, en su insistencia de demostrar el punto, se acercó a Tornillo con la laptop, y Tornillo dio un paso atrás, y Marcelo tropezó, y en el intento de no caer se aferró a lo primero que encontró: un soporte de madera lateral del molino que nadie había identificado como crítico. El soporte cedió con un crujido que hizo voltear a todos en la plaza. La viga maestra del molino se rajó con un sonido que el pueblo entero recordaría por generaciones.</p>
+
+    <p>Silencio. Todos miraron la grieta. Luego miraron a Marcelo. Tornillo miró a Marcelo con la expresión de alguien que acaba de tener razón de la peor manera posible.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="tornillo%20cara.webp" alt="Tornillo"><p>—Eso —dijo Tornillo, señalando la grieta— fue un error humano.</p></div>
+      <p class="narration">Marcelo cerró la laptop. <span class="plop">—clop—</span></p>
+    </div>
+
+    <p>Tornillo giró sobre sus talones y se alejó sin decir nada más. Franco lo siguió. Carlos los siguió murmurando algo sobre la juventud. Felipe se quedó un segundo, miró a Marcelo con una mezcla de pena y fascinación, y también se fue.</p>
+
+    <div class="page-num">— VII —</div>
+  </div>
+
+  <!-- VIII: LA TRAICIÓN -->
+  <div class="page">
+    <h2>VIII. La Traición</h2>
+
+    <p>El Peruano llegó corriendo justo a tiempo para ver a Tornillo alejarse con toda la dignidad de su columna recta y su peinado inmóvil. Marcelo estaba de pie en la plaza con la laptop bajo el brazo y la barba ligeramente más desordenada de lo habitual.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—¿Ves lo que pasó? —dijo el Peruano.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—El bot saboteó el soporte —dijo Marcelo.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Marcelo.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Es lo que pasó. <span class="plop">—PLOP—</span> <strong>¿Ya?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Tú rompiste el molino.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Yo estaba demostrando un punto.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—¡Con la viga maestra!</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—No sabía que era la viga maestra.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—¡Nadie que no sea un bot sabría que esa era la viga maestra!</p></div>
+    </div>
+
+    <p>Silencio.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Eso fue casi un cumplido para los bots —dijo Marcelo.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Porque <strong>trabajo con bots</strong>, Marcelo. Mis modelos, mis pipelines, mis sistemas. Todo. Inteligencia artificial. He trabajado con ella toda mi carrera.</p></div>
+    </div>
+
+    <p>El silencio que siguió fue de una calidad distinta. Marcelo bajó la laptop lentamente.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—¿Cuánto tiempo llevas sabiendo esto y no me lo dijiste?</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Desde siempre. No era relevante.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—No era relevante —repitió Marcelo, con la voz de alguien que está construyendo algo por dentro—. Tú. Mi colega. Mi compañero de investigación. Viajero del tiempo. Trabaja con bots. <span class="plop">—CLOP—</span> ¿Ya?</p></div>
+    </div>
+
+    <p>Marcelo abrió la laptop de golpe, encendió la cámara.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Clase de hoy: <strong>la traición</strong>. ¿Qué vende un traidor? No vende lealtad. Vende <strong>apariencia</strong>. ¿Ya? <strong>Franco</strong>, empieza tú.</p></div>
+    </div>
+
+    <p>Y se fue.</p>
+
+    <div class="page-num">— VIII —</div>
+  </div>
+
+  <!-- IX: LA ESTATUA -->
+  <div class="page">
+    <h2>IX. La Estatua</h2>
+
+    <p>El Peruano lo buscó durante dos días. Lo encontró a la salida del molino, inmóvil, mirando algo.</p>
+
+    <p>Era una estatua. De piedra oscura, tamaño mayor al natural, con una barba que no dejaba dudas sobre la identidad del representado. La base tenía una inscripción en letras profundas y solemnes.</p>
+
+    <div class="inscription">
+      <span class="inscription-title">Marcelo</span>
+      <p><em>El Máximo Emperador Okupa</em></p>
+      <p><em>Rey de los Tiempos y Señor de las Habitaciones Vacías</em></p>
+      <p><em>Que en toda época encontró una puerta abierta</em></p>
+      <p><em>y en ella instaló su cátedra</em></p>
+    </div>
+
+    <p>Marcelo la estaba leyendo por tercera vez cuando llegó el Peruano. No dijo nada. El Peruano tampoco. Durante un minuto largo los dos contemplaron la estatua en silencio. Finalmente Marcelo habló, con una voz que el Peruano no le conocía, más quieta, más profunda, como si algo en su interior hubiera encontrado un eje:</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—O sea que no era solo que encontraba departamentos.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—No —dijo el Peruano.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Puedo entrar a cualquier época.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Sí.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Y en toda época... hay una habitación vacía esperándome.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Al parecer.</p></div>
+    </div>
+
+    <p>Marcelo asintió lentamente. Miró el molino. Miró la estatua. Miró el molino de nuevo.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Entonces el molino —dijo— en algún momento queda vacío.</p></div>
+    </div>
+
+    <p>El Peruano sintió algo frío recorrerle la espalda que no era el viento.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Marcelo. Escúchame.</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<span class="plop">—PLOP—</span> <strong>¿Ya?</strong></p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Eso que estás pensando—</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Estoy pensando que soy un emperador. <span class="plop">—CLOP—</span> La estatua lo dice. El tiempo lo confirma. El molino lo espera. ¿Ya?</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Marcelo, el molino lo acaban de reparar cuatro personas que dieron todo para—</p></div>
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Franco</strong> va a estar en mi primera clase. Lo sé porque siempre está. En toda época, en toda lista de alumnos, Franco aparece. Ahora entiendo por qué. <span class="plop">—PLOP—</span> Siempre fue mío. <strong>¿Ya?</strong></p></div>
+    </div>
+
+    <p>Marcelo abrió la laptop con la calma de una decisión tomada. Miró a la cámara con una sonrisa que nadie en cuarenta semestres le había visto.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Clase de hoy: <strong>el poder</strong>. ¿Qué vende un emperador? No vende miedo. Vende <strong>destino</strong>. ¿Ya?</p></div>
+    </div>
+
+    <p>El Peruano intentó agarrarlo del brazo. Marcelo ya había encontrado la puerta del molino. Estaba abierta.</p>
+
+    <div class="page-num">— IX —</div>
+  </div>
+
+  <!-- X: EL PRECIO -->
+  <div class="page">
+    <h2>X. El Precio</h2>
+
+    <p>Lo que ocurrió después el Peruano no lo vio todo, porque estaba intentando invocar una contradicción suficientemente grande para volver a su tiempo sin dejar más paradojas de las que ya existían. Pero alcanzó a ver el cartel. Pegado en la puerta de la taberna, junto a otros avisos del pueblo, había un papel nuevo. La tinta todavía fresca. El dibujo reconocible.</p>
+
+    <p>Su propia cara.</p>
+
+    <div class="wanted">
+      <span class="wanted-title">SE BUSCA</span>
+      <p><strong>Vivo o Muerto</strong></p>
+      <p><em>El Peruano</em></p>
+      <p>Enemigo del Emperador</p>
+      <p>Agente de los Bots</p>
+      <p>Recompensa válida en toda época</p>
+      <span class="wanted-footer">— Por orden del Máximo Emperador Okupa —</span>
+    </div>
+
+    <p>El Peruano miró el cartel durante un segundo. Luego miró el molino, donde ya se escuchaba desde adentro:</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Bienvenidos a la primera clase del Imperio. ¿Qué vende un molino? No vende harina. Vende <strong>poder</strong>. <span class="plop">—CLOP—</span> <strong>Franco</strong>, empieza tú. ¿Ya?</p></div>
+    </div>
+
+    <p>Y desde algún rincón del pueblo, porque Franco era Franco y estaba en todas partes, se escuchó una voz enorme respondiendo sin saber muy bien por qué:</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="franco%20cara.webp" alt="Franco"><p>—...presente.</p></div>
+    </div>
+
+    <p>El Peruano cerró los ojos. Murmuró para sí mismo, con cuidado, eligiendo las palabras como quien desactiva algo delicado:</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="peruano%20cara.webp" alt="El Peruano"><p>—Esto no debería haber pasado así, <strong>sí, no?</strong></p></div>
+    </div>
+
+    <p>El suelo tembló. Se abrió el pliegue. Y el Peruano desapareció de Villarreal del Asombro, dejando atrás un molino recién reparado, un emperador recién coronado, y un cartel con su cara que, por orden imperial, sería reproducido en toda época conocida de la historia humana.</p>
+
+    <div class="page-num">— X —</div>
+  </div>
+
+  <!-- ÚLTIMA NOTA -->
+  <div class="page">
+    <h2>Última Nota</h2>
+
+    <p>Esa noche, desde el interior del molino, una laptop iluminaba las aspas girando afuera. Cámara encendida. Barba perfectamente visible. Micrófono demasiado cerca.</p>
+
+    <div class="dialogue">
+      <div class="speech"><img class="face" loading="lazy" decoding="async" src="marcelo%20cara.webp" alt="Marcelo"><p>—Estimados estudiantes. <span class="plop">—PLOP—</span> Hoy inauguramos sede. ¿Qué vende un imperio? No vende territorio. Vende <strong>visión</strong>. <span class="plop">—CLOP—</span> ¿Ya? <strong>Franco</strong>, empieza tú.</p></div>
+    </div>
+
+    <p>Y Franco, en algún punto entre el pasado y el futuro, respondió presente. Como siempre. Como en toda época.</p>
+
+    <p>Lo cual tenía cierta lógica, pensándolo bien. Franco siempre había ocupado mucho espacio. Era inevitable que con el tiempo ocupara también mucho tiempo. Literalmente. Su nombre en toda lista de alumnos de toda época conocida. Su voz respondiendo <em>presente</em> desde siglos que todavía no habían ocurrido. Su masa gravitacional, que ya alteraba la rotación de la Tierra cuando se sentaba, resultó ser perfectamente compatible con la curvatura del tiempo.</p>
+
+    <p>El universo lo anotó en algún lugar, con la resignación de quien lleva demasiados siglos administrando lo inevitable:</p>
+
+    <blockquote>
+      <p>Franco: ocupa demasiado espacio. Ocupa demasiado tiempo. Problema sin solución prevista.</p>
+    </blockquote>
+
+    <p>Como estaba escrito en la base de la estatua a la entrada del molino, que el cuarteto vería cuando llegara a repararlo sin saber todavía que estaba reparando el trono de su futuro enemigo. Y sin saber tampoco que Franco, de alguna manera, ya había estado ahí antes. Como en todas partes. Como en todo momento. Como Franco.</p>
+
+    <div class="divider">✦</div>
+
+    <div class="moral">
+      <span class="moral-ornament">❧</span>
+      <p>Este capítulo ocurre en algún lugar de la historia.</p>
+      <p>Exactamente dónde, depende de cuándo lo leas.</p>
+      <p>Y de si el Peruano ha pasado por ahí todavía.</p>
+      <p><em>Spoiler: siempre ha pasado por ahí.</em></p>
+      <p><em>Spoiler del spoiler: eso es exactamente el problema.</em></p>
+      <p><em>Spoiler del spoiler del spoiler: Franco también.</em></p>
+    </div>
+
+    <div class="page-num">— Fin del Capítulo 0 —</div>
+  </div>
+
+</div>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const st = window.scrollY;
+    const dh = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (st / dh * 100) + '%';
+  });
+
+  // Reveal pages on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.contains('visible') || observer.observe(p);
+  });
+
+  // Show cover immediately
+  document.querySelector('.cover').classList.add('visible');
+</script>
+</body>
+</html>
