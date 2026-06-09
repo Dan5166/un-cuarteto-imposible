@@ -342,6 +342,32 @@
 
   em { color: var(--ink-light); font-style: italic; }
 
+  /* Concept art illustration */
+  .illustration {
+    margin: 0 -1.5rem 2.5rem;
+    text-align: center;
+  }
+
+  .illustration img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid rgba(44,26,14,0.2);
+    box-shadow:
+      0 4px 14px rgba(44,26,14,0.25),
+      inset 0 0 0 4px rgba(245,234,214,0.5);
+  }
+
+  .illustration figcaption {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--ink-light);
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-top: 0.7rem;
+  }
+
   @media (max-width: 600px) {
     .page, .cover { padding: 2.5rem 1.8rem 2.5rem 2.2rem; }
     p { font-size: 1.05rem; }
@@ -367,6 +393,11 @@
 
   <!-- PAGE 1: Los personajes -->
   <div class="page">
+    <figure class="illustration">
+      <img src="el%20cuarteto%20imposible%20concept%20art.png" alt="Concept art de los personajes: Franco, Carlos, Tornillo y Felipe en Villarreal del Asombro">
+      <figcaption>Villarreal del Asombro — Personajes principales</figcaption>
+    </figure>
+
     <p>En un pequeño pueblo llamado <em>Villarreal del Asombro</em>, vivían cuatro hombres que la gente señalaba con el dedo cada vez que salían a la calle.</p>
 
     <div class="character">
