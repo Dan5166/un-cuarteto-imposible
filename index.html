@@ -116,6 +116,8 @@
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
+  .chapter-card[hidden] { display: none; }
+
   .chapter-card:hover {
     transform: translateY(-6px);
     box-shadow:
@@ -138,7 +140,8 @@
     height: 6px;
     background: linear-gradient(90deg, var(--gold), var(--red));
   }
-  .chapter-card.ch0 .card-band {
+  .chapter-card.ch0 .card-band,
+  .chapter-card.ch4 .card-band {
     background: linear-gradient(90deg, var(--empire-gold), var(--empire-purple));
   }
 
@@ -201,7 +204,8 @@
     color: var(--ink-light);
     margin-bottom: 0.5rem;
   }
-  .chapter-card.ch0 .card-chap { color: var(--empire-purple); }
+  .chapter-card.ch0 .card-chap,
+  .chapter-card.ch4 .card-chap { color: var(--empire-purple); }
 
   .card-title {
     font-family: 'Playfair Display', serif;
@@ -231,7 +235,8 @@
     gap: 0.4rem;
     transition: gap 0.2s ease;
   }
-  .chapter-card.ch0 .card-read { color: var(--empire-purple); }
+  .chapter-card.ch0 .card-read,
+  .chapter-card.ch4 .card-read { color: var(--empire-purple); }
   .chapter-card:hover .card-read { gap: 0.8rem; }
 
   /* ── NOTA AL PIE ── */
@@ -292,6 +297,23 @@
         <span class="card-chap">Capítulo 0 · precuela · léelo después</span>
         <h2 class="card-title">El Hombre que Dijo "Sí, No" Demasiadas Veces</h2>
         <p class="card-desc">Una precuela fuera del tiempo. El Peruano y su muletilla imposible caen al pasado, donde un profesor okupa libra su guerra contra los bots y un imperio espera nacer.</p>
+        <span class="card-read">Leer capítulo →</span>
+      </div>
+    </a>
+
+    <!-- CAPÍTULO ¿4? · El Imperio de Marcelo — OCULTO por ahora (quitar el atributo hidden para publicarlo) -->
+    <a class="chapter-card ch4" href="capitulo_maties_joel.html" hidden>
+      <div class="card-band"></div>
+      <div class="card-art">
+        <div class="emblem">
+          <span class="glyph">¿IV?</span>
+          <span class="glyph-sub">Matías · Joel</span>
+        </div>
+      </div>
+      <div class="card-body">
+        <span class="card-chap">Capítulo ¿4? · el número está en disputa</span>
+        <h2 class="card-title">El Hombre que Levantó Todo Menos lo Único que Importaba</h2>
+        <p class="card-desc">En el futuro del Imperio de Marcelo, un hombre muy pequeño levanta cosas muy grandes y otro muy correcto ayuda a todo el mundo y cobra veinte lucas. Dos historias sobre fuerza mal medida.</p>
         <span class="card-read">Leer capítulo →</span>
       </div>
     </a>

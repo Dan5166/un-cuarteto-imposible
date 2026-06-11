@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capítulo ¿4? — El Hombre que Levantó Todo Menos lo Único que Importaba</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #f5ead6;
+    --ink: #2c1a0e;
+    --ink-light: #5c3d1e;
+    --red: #8b1a1a;
+    --gold: #c8922a;
+    --dark-bg: #1a0d05;
+    --empire-purple: #3b1f5e;
+    --empire-gold: #d4aa3a;
+    --vein-red: #7a1010;
+    --news-bg: #f0e8d0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--dark-bg);
+    background-image:
+      radial-gradient(ellipse at 15% 15%, #2c1a0e 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 85%, #0d0505 0%, transparent 55%),
+      repeating-linear-gradient(45deg, transparent, transparent 40px,
+        rgba(200,146,42,0.015) 40px, rgba(200,146,42,0.015) 41px);
+    min-height: 100vh;
+    font-family: 'Crimson Pro', Georgia, serif;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem 6rem;
+  }
+
+  .book { max-width: 760px; width: 100%; }
+
+  /* ── PÁGINAS ── */
+  .page {
+    background: var(--parchment);
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+      linear-gradient(170deg, #faf0e0 0%, #f2e3c4 45%, #ecdac0 100%);
+    border-radius: 4px 14px 14px 4px;
+    box-shadow:
+      -8px 0 16px rgba(0,0,0,0.5),
+      8px 0 20px rgba(0,0,0,0.2),
+      inset -4px 0 10px rgba(44,26,14,0.07),
+      inset 4px 0 8px rgba(255,255,255,0.25);
+    padding: 4rem 4.5rem 3.5rem 5rem;
+    margin-bottom: 0.6rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+
+  .page.visible { opacity: 1; transform: translateY(0); }
+
+  .page::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 42px;
+    background: linear-gradient(90deg, rgba(44,26,14,0.18) 0%, rgba(44,26,14,0.06) 50%, transparent 100%);
+    border-right: 1px solid rgba(44,26,14,0.07);
+  }
+
+  .page::after {
+    content: '';
+    position: absolute;
+    top: 20px; right: 20px;
+    width: 36px; height: 36px;
+    border-top: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    opacity: 0.35;
+  }
+
+  /* ── PORTADA ── */
+  .cover {
+    text-align: center;
+    padding: 5rem 4rem;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E"),
+      linear-gradient(155deg, #faf0e0 0%, #edddbb 55%, #e3d0a8 100%);
+    border-radius: 4px 14px 14px 4px;
+    box-shadow: -8px 0 16px rgba(0,0,0,0.5), 8px 0 20px rgba(0,0,0,0.2),
+      inset -4px 0 10px rgba(44,26,14,0.07), inset 4px 0 8px rgba(255,255,255,0.25);
+    margin-bottom: 0.6rem;
+  }
+
+  .cover-ornament { font-size: 1.3rem; color: var(--gold); letter-spacing: 0.5em; margin-bottom: 2rem; opacity: 0.65; }
+
+  .cover-note {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-light);
+    margin-bottom: 2.5rem;
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+
+  .cover-border {
+    border: 2px solid var(--gold);
+    padding: 2.5rem 2rem;
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+
+  .cover-border::before {
+    content: '❧';
+    position: absolute; top: -14px; left: 50%;
+    transform: translateX(-50%);
+    background: #ede0c0; padding: 0 10px;
+    font-size: 1.3rem; color: var(--gold);
+  }
+  .cover-border::after {
+    content: '❧';
+    position: absolute; bottom: -14px; left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+    background: #ede0c0; padding: 0 10px;
+    font-size: 1.3rem; color: var(--gold);
+  }
+
+  .cover-chapter { font-family: 'Crimson Pro', serif; font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
+
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 900; color: var(--ink); line-height: 1.15; margin-bottom: 1rem; }
+
+  .cover-sub { font-family: 'Crimson Pro', serif; font-style: italic; font-size: 1.05rem; color: var(--ink-light); margin-top: 1rem; }
+
+  /* ── ACTO HEADER ── */
+  .act-header {
+    text-align: center;
+    padding: 3rem 4rem 3.5rem 5rem;
+    margin-bottom: 0.6rem;
+    border-radius: 4px 14px 14px 4px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+
+  .act-header.visible { opacity: 1; transform: translateY(0); }
+
+  .act-header.acto1 {
+    background: linear-gradient(135deg, #2a0a0a 0%, #1a0505 100%);
+    box-shadow: -8px 0 16px rgba(0,0,0,0.6), 8px 0 20px rgba(0,0,0,0.3);
+  }
+
+  .act-header.acto2 {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1a 100%);
+    box-shadow: -8px 0 16px rgba(0,0,0,0.6), 8px 0 20px rgba(0,0,0,0.3);
+  }
+
+  .act-label {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .acto1 .act-label { color: #e87070; }
+  .acto2 .act-label { color: var(--empire-gold); }
+
+  .act-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .acto1 .act-title { color: #f5c0c0; }
+  .acto2 .act-title { color: var(--empire-gold); }
+
+  .act-subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 1rem;
+    margin-top: 0.8rem;
+    opacity: 0.7;
+  }
+  .acto1 .act-subtitle { color: #e87070; }
+  .acto2 .act-subtitle { color: #a090d0; }
+
+  /* ── TÍTULOS DE SECCIÓN ── */
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--red);
+    text-align: center;
+    margin: 0.5rem 0 2rem;
+    padding-bottom: 0.8rem;
+    position: relative;
+  }
+
+  h2::after { content: '— ✦ —'; display: block; font-size: 0.8rem; color: var(--gold); margin-top: 0.5rem; letter-spacing: 0.35em; }
+
+  /* ── PÁRRAFOS ── */
+  p {
+    font-size: 1.12rem;
+    line-height: 1.9;
+    color: var(--ink);
+    margin-bottom: 1.3rem;
+    text-align: justify;
+    font-weight: 300;
+  }
+
+  p:first-of-type::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.6rem;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    margin: 0.1em 0.12em 0 0;
+    color: var(--red);
+  }
+
+  /* ── ESCALA DE NIVELES ── */
+  .nivel-box {
+    margin: 1.5rem 0;
+    border: 1px solid rgba(122,16,16,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .nivel-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.7rem 1.2rem;
+    border-bottom: 1px solid rgba(122,16,16,0.1);
+    gap: 1rem;
+  }
+
+  .nivel-item:last-child { border-bottom: none; }
+
+  .nivel-badge {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: white;
+    background: var(--vein-red);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+
+  .nivel-item:nth-child(1) .nivel-badge { background: #5a8a5a; }
+  .nivel-item:nth-child(2) .nivel-badge { background: #8a7a2a; }
+  .nivel-item:nth-child(3) .nivel-badge { background: #8a4a1a; }
+  .nivel-item:nth-child(4) .nivel-badge { background: #8a1a1a; }
+  .nivel-item:nth-child(5) .nivel-badge { background: #3b1f5e; }
+
+  .nivel-desc {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 300;
+  }
+
+  .nivel-desc strong { color: var(--vein-red); }
+
+  /* ── LISTA DE LOGROS ── */
+  .logros {
+    margin: 1.5rem 0;
+    padding: 1.2rem 1.5rem;
+    background: rgba(44,26,14,0.04);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .logro-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.3rem 0;
+    border-bottom: 1px dashed rgba(44,26,14,0.1);
+    font-size: 1rem;
+    font-weight: 300;
+  }
+
+  .logro-item:last-child {
+    border-bottom: none;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--red);
+    font-size: 1.1rem;
+    margin-top: 0.3rem;
+    padding-top: 0.6rem;
+    border-top: 2px solid var(--red);
+  }
+
+  .logro-check { color: #5a8a5a; font-weight: 700; }
+  .logro-pending { color: var(--red); font-weight: 700; font-size: 1.2rem; }
+  .logro-note { font-size: 0.82rem; font-style: italic; color: var(--ink-light); margin-left: 0.5rem; }
+
+  /* ── DIÁLOGO ── */
+  .dialogue {
+    margin: 1.2rem 0;
+    padding: 0.9rem 1.3rem;
+    background: rgba(200,146,42,0.06);
+    border-left: 2px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+
+  .dialogue p { margin-bottom: 0.5rem; font-size: 1.05rem; }
+  .dialogue p:last-child { margin-bottom: 0; }
+  .dialogue p::first-letter,
+  .cover-note::first-letter,
+  .nivel-desc::first-letter,
+  .logro-item::first-letter { font-size: inherit; float: none; line-height: inherit; margin: 0; color: inherit; font-weight: inherit; }
+
+  /* ── MULETILLA ── */
+  .plop { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.82em; color: var(--ink-light); opacity: 0.65; letter-spacing: 0.05em; }
+
+  /* ── NOTICIAS ── */
+  .noticia {
+    margin: 1.5rem 0;
+    padding: 0.9rem 1.2rem;
+    background: var(--news-bg);
+    border: 1px solid rgba(44,26,14,0.2);
+    border-radius: 3px;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .noticia::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+  }
+
+  .noticia-medio {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .noticia p {
+    font-size: 1rem;
+    font-style: italic;
+    margin: 0;
+    color: var(--ink);
+    text-align: left;
+    line-height: 1.5;
+  }
+  .noticia p::first-letter { font-size: inherit; float: none; line-height: inherit; margin: 0; color: inherit; font-weight: inherit; }
+
+  .farkas-cita {
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.8rem;
+    background: rgba(44,26,14,0.05);
+    border-left: 2px solid var(--ink-light);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-light);
+  }
+
+  /* ── CANAL / VIDEOS ── */
+  .canal-box {
+    margin: 1.5rem 0;
+    padding: 1.2rem 1.5rem;
+    background: linear-gradient(135deg, rgba(59,31,94,0.06), rgba(212,170,58,0.06));
+    border: 1px solid var(--empire-gold);
+    border-radius: 6px;
+  }
+
+  .canal-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--empire-purple);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+
+  .video-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed rgba(59,31,94,0.15);
+    font-size: 0.95rem;
+  }
+
+  .video-item:last-child { border-bottom: none; }
+
+  .video-views {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78rem;
+    color: var(--empire-purple);
+    opacity: 0.7;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .video-nombre { font-style: italic; color: var(--ink); font-weight: 300; }
+
+  /* ── LEY IMPERIAL ── */
+  .ley {
+    margin: 1.5rem 0;
+    padding: 1.2rem 1.5rem;
+    background: linear-gradient(135deg, rgba(59,31,94,0.08), rgba(59,31,94,0.04));
+    border: 1px solid var(--empire-purple);
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .ley-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--empire-purple);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .ley p {
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--empire-purple);
+    text-align: center;
+    margin: 0;
+    line-height: 1.7;
+  }
+  .ley p::first-letter { font-size: inherit; float: none; line-height: inherit; margin: 0; color: inherit; font-weight: inherit; }
+
+  /* ── NOTA AL PIE ── */
+  .nota-final {
+    margin-top: 2rem;
+    padding: 1.2rem 1.5rem;
+    background: rgba(44,26,14,0.04);
+    border-top: 1px solid rgba(44,26,14,0.15);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  .nota-final p { font-size: 0.95rem; margin-bottom: 0.4rem; text-align: left; }
+  .nota-final p::first-letter { font-size: inherit; float: none; line-height: inherit; margin: 0; color: inherit; font-weight: inherit; }
+  .nota-final strong { color: var(--ink); font-style: normal; }
+
+  /* ── PAPEL DEL APUNTE ── */
+  .apunte {
+    margin: 1.5rem auto;
+    max-width: 360px;
+    padding: 1.2rem 1.5rem;
+    background: #f8f0d8;
+    border: 1px solid #c8a870;
+    border-radius: 2px;
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.15);
+    transform: rotate(0.8deg);
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .apunte p { font-size: 0.98rem; margin-bottom: 0.3rem; text-align: left; }
+  .apunte p::first-letter { font-size: inherit; float: none; line-height: inherit; margin: 0; color: inherit; font-weight: inherit; }
+  .apunte .apunte-final { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; color: var(--red); border-top: 1px solid var(--red); padding-top: 0.4rem; margin-top: 0.4rem; }
+
+  /* ── BLOCKQUOTE ── */
+  blockquote {
+    margin: 1.8rem 0.8rem;
+    padding: 1.4rem 1.8rem;
+    background: rgba(139,26,26,0.05);
+    border: 1px solid rgba(139,26,26,0.18);
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+  }
+
+  blockquote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    color: var(--red);
+    opacity: 0.15;
+    position: absolute;
+    top: -18px; left: 8px;
+    line-height: 1;
+  }
+
+  blockquote p { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; color: var(--red); margin: 0; text-align: center; }
+  blockquote p::first-letter { font-size: 1.1rem; float: none; line-height: inherit; margin: 0; color: var(--red); font-weight: 400; }
+
+  /* ── DIVISORES ── */
+  .divider { text-align: center; color: var(--gold); font-size: 1rem; letter-spacing: 0.5em; margin: 1.8rem 0; opacity: 0.55; }
+
+  /* ── NÚM. PÁGINA ── */
+  .page-num { text-align: center; font-family: 'Crimson Pro', serif; font-size: 0.82rem; color: var(--ink-light); opacity: 0.45; margin-top: 2.5rem; letter-spacing: 0.15em; }
+
+  em { color: var(--ink-light); font-style: italic; }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--vein-red), var(--gold), var(--empire-purple)); width: 0%; transition: width 0.1s; z-index: 100; }
+
+  ::-webkit-scrollbar { width: 7px; }
+  ::-webkit-scrollbar-track { background: #0d0505; }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+  @media (max-width: 600px) {
+    .page, .cover, .act-header { padding: 2.5rem 1.8rem 2.5rem 2.2rem; }
+    p { font-size: 1.04rem; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div class="book">
+
+  <!-- PORTADA -->
+  <div class="cover page visible">
+    <div class="cover-ornament">⸻ ✦ ⸻</div>
+    <p class="cover-note">Nota del editor: Este capítulo ocurre en el futuro. Cuánto futuro exactamente es difícil de precisar porque Marcelo lleva varios siglos dando la misma clase y los calendarios perdieron la voluntad de seguir contando.</p>
+    <div class="cover-border">
+      <span class="cover-chapter">Capítulo ¿4? &nbsp;·&nbsp; El número exacto está en disputa</span>
+      <h1>El Hombre que Levantó Todo Menos lo Único que Importaba</h1>
+      <p class="cover-sub">El Imperio de Marcelo &nbsp;·&nbsp; Algún futuro</p>
+    </div>
+    <div class="cover-ornament" style="margin-top:1.8rem;margin-bottom:0">⸻ ✦ ⸻</div>
+  </div>
+
+  <!-- ACTO 1 HEADER -->
+  <div class="act-header acto1 page">
+    <span class="act-label">Acto I</span>
+    <div class="act-title">Matías</div>
+    <div class="act-subtitle">En el que un hombre muy pequeño levanta cosas muy grandes</div>
+  </div>
+
+  <!-- I: MATÍAS -->
+  <div class="page">
+    <h2>I. Matías</h2>
+
+    <p>Había en el futuro un hombre llamado <strong>Matías</strong>. Medía un metro cincuenta exactos, lo cual era, según él, la altura perfecta para la distribución óptima de fuerza por centímetro cuadrado de cuerpo humano. Nadie le había pedido esa explicación. Él la daba de todas formas, con las venas del cuello marcadas, que era su estado natural.</p>
+
+    <p>Era musculoso de una manera que la biología no termina de justificar. No era que tuviera músculos grandes. Era que tenía músculos donde los humanos normalmente tienen otras cosas. Músculos en los codos. Músculos en las orejas. Un médico que lo examinó una vez cerró la carpeta, se quitó los lentes, y pidió vacaciones por primera vez en doce años.</p>
+
+    <p>Matías tenía una expresión permanente de alguien que acaba de leer algo con lo que no está de acuerdo. No era tristeza. No era exactamente enojo. Era una temperatura. Un estado de base. Como un motor encendido que nunca se apaga. Las venas del cuello siempre visibles. Los antebrazos siempre tensos. La mandíbula siempre ligeramente apretada, como si estuviera mascando algo que se lo merecía. Si alguien le decía que parecía enojado, Matías lo miraba con las venas del cuello un poco más marcadas y decía:</p>
+
+    <div class="dialogue">
+      <p>—Así soy yo.</p>
+    </div>
+
+    <p>Lo cual era completamente cierto y no respondía nada.</p>
+
+    <div class="nivel-box">
+      <div class="nivel-item">
+        <span class="nivel-badge">Nivel 1</span>
+        <span class="nivel-desc"><strong>Estado base.</strong> Venas del cuello y antebrazos. Mandíbula apretada. Los muebles cercanos están técnicamente a salvo aunque prefieren no estarlo.</span>
+      </div>
+      <div class="nivel-item">
+        <span class="nivel-badge">Nivel 2</span>
+        <span class="nivel-desc"><strong>Algo lo molestó.</strong> Venas en la frente. La ropa empieza a quedar ajustada. Las sillas cercanas crujen preventivamente.</span>
+      </div>
+      <div class="nivel-item">
+        <span class="nivel-badge">Nivel 3</span>
+        <span class="nivel-desc"><strong>Irritación activa.</strong> Venas en lugares donde no debería haber venas. La ropa ya no queda del todo. Las paredes consideran sus opciones en silencio.</span>
+      </div>
+      <div class="nivel-item">
+        <span class="nivel-badge">Nivel 4</span>
+        <span class="nivel-desc"><strong>Tilt.</strong> Todo el cuerpo. Masa muscular visible desde el exterior del edificio. Los edificios toman decisiones que luego lamentan.</span>
+      </div>
+      <div class="nivel-item">
+        <span class="nivel-badge">Nivel 5</span>
+        <span class="nivel-desc"><strong>No documentado.</strong> Teóricamente posible. Potencialmente geológico. Reservado para una sola circunstancia que aún no había ocurrido y cuyo nombre era Franco.</span>
+      </div>
+    </div>
+
+    <div class="logros">
+      <div class="logro-item">Su primera bicicleta <span class="logro-check">✓</span></div>
+      <div class="logro-item">El auto de su vecino con el vecino adentro <span class="logro-check">✓</span></div>
+      <div class="logro-item">Un camión de dieciocho ruedas cargado de cemento <span class="logro-check">✓</span></div>
+      <div class="logro-item">Un portaviones <span class="logro-check">✓</span> <span class="logro-note">el almirante nunca lo perdonó</span></div>
+      <div class="logro-item">El récord mundial de peso muerto <span class="logro-check">✓</span> <span class="logro-note">cuatro veces, porque seguía siendo poco</span></div>
+      <div class="logro-item">El concepto abstracto de límite físico <span class="logro-check">✓</span></div>
+      <div class="logro-item">Las expectativas de sus padres <span class="logro-check">✓</span></div>
+      <div class="logro-item">La cordillera de los Andes <span class="logro-check">✓</span> <span class="logro-note">solo un extremo, pero igual contaba</span></div>
+      <div class="logro-item">Franco <span class="logro-pending">✗</span></div>
+    </div>
+
+    <p>Pero eso vendría después.</p>
+
+    <div class="page-num">— I —</div>
+  </div>
+
+  <!-- II: LAS CLASES DE MARCELO -->
+  <div class="page">
+    <h2>II. Las Clases de Marcelo</h2>
+
+    <p>Matías era alumno de Marcelo desde hacía dos semestres. No porque le interesara Habilidades Blandas para el Entorno Laboral. Sino porque era el único ramo que le quedaba para completar el currículo y todos los demás profesores habían firmado un documento informal pero vinculante solicitando que Matías no volviera a sentarse en sus salas. El último incidente había involucrado un pupitre, el tercer piso, y una explicación que Matías consideró perfectamente razonable.</p>
+
+    <p>La primera clase con Marcelo comenzó como todas las clases de Marcelo, desde algún living que claramente no era el suyo, con una caja de mudanza de fondo y la cámara encendida:</p>
+
+    <div class="dialogue">
+      <p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Hoy veremos propuesta de valor. ¿Qué vende Starbucks? No vende café. Vende <strong>experiencia</strong>. <span class="plop">—CLOP—</span> ¿Ya?</p>
+      <p>Matías levantó la mano. Venas en nivel 1 y medio.</p>
+      <p>—Vende café.</p>
+      <p>Marcelo lo miró. Cuatro segundos exactos.</p>
+      <p>—¿Qué vende Nike? No vende zapatillas. Vende <strong>superación</strong>. <span class="plop">—PLOP—</span> ¿Ya?</p>
+      <p>—Vende zapatillas.</p>
+      <p>Cinco segundos esta vez.</p>
+      <p>—¿Qué vende un gimnasio? No vende máquinas. Vende <strong>transformación</strong>. <span class="plop">—CLOP—</span> ¿Ya?</p>
+      <p>—Vende máquinas.</p>
+    </div>
+
+    <p>Marcelo cerró los ojos. Los abrió. Siguió la clase como si Matías fuera un sonido ambiental. Desde ese día, Marcelo nunca llamó a Matías primero. A veces no lo llamaba. A veces Matías respondía igual sin que nadie le preguntara.</p>
+
+    <div class="dialogue">
+      <p>—¿Qué vende un líder? No vende órdenes. Vende <strong>visión</strong>.</p>
+      <p>—Vende órdenes —dijo Matías desde el fondo.</p>
+      <p><span class="plop">—clop—</span></p>
+    </div>
+
+    <p>Pero lo que sí notó Matías desde la primera clase fue el nombre. Marcelo, antes de cualquier ejercicio, antes de cualquier dinámica, antes incluso de terminar de explicar el concepto, decía:</p>
+
+    <div class="dialogue">
+      <p>—<strong>Franco</strong>, empieza tú. ¿Ya?</p>
+    </div>
+
+    <p>Y Franco respondía. Siempre. Sin falta. Como un reflejo. Matías nunca había visto a Franco en ninguna clase. No estaba en su sección. Pero ahí estaba el nombre, semana tras semana, convocado por Marcelo como si fuera lo primero que el universo necesitara confirmar antes de seguir funcionando.</p>
+
+    <div class="dialogue">
+      <p>—¿Quién es Franco? —preguntó Matías una vez, al terminar la clase.</p>
+    </div>
+
+    <p>Nadie respondió. Los otros alumnos ya se habían desconectado. Marcelo apagó la cámara desde un living con piso de parquet y una ventana con vista a un patio que no correspondía a ningún edificio conocido del sector.</p>
+
+    <p><em>Franco</em>, pensó Matías, con las venas del cuello en nivel 1. Lo anotó.</p>
+
+    <div class="page-num">— II —</div>
+  </div>
+
+  <!-- III: EL MARTES DEL LOL -->
+  <div class="page">
+    <h2>III. El Martes del LoL</h2>
+
+    <p>El martes que cambió la geografía del sector fue, como la mayoría de los martes importantes, completamente ordinario hasta que dejó de serlo.</p>
+
+    <p>Matías llegó a su departamento después de clases, se sentó frente al computador, abrió el juego, y entró a una partida. Las venas en nivel 1, la mandíbula en su posición habitual de leve desacuerdo con la existencia.</p>
+
+    <p>La partida empezó bien. Luego empezó menos bien. Luego ocurrió.</p>
+
+    <p>Su compañero de equipo, un jugador de nombre <strong>xX_DestrozaBot_420_Xx</strong>, tomó una decisión táctica que Matías procesó en aproximadamente 0.3 segundos como la acción más decepcionante que había presenciado en su vida, incluyendo el día que intentó levantar el concepto de límite físico y este opuso menos resistencia de lo esperado.</p>
+
+    <p>Las venas subieron a nivel 2. xX_DestrozaBot_420_Xx lo volvió a hacer. Nivel 3. La silla crujió. La ropa de Matías quedó ajustada de formas que el fabricante no había contemplado.</p>
+
+    <p>xX_DestrozaBot_420_Xx escribió en el chat: <em>"gg"</em>. La partida no había terminado.</p>
+
+    <p>Matías miró la pantalla. Miró el chat. Miró a xX_DestrozaBot_420_Xx en el mapa, quieto, sin hacer nada, rendido antes del final. Las venas llegaron al nivel 4.</p>
+
+    <div class="dialogue">
+      <p>—Vegano —dijo Matías, en voz baja, con la solemnidad de un diagnóstico médico terminal.</p>
+    </div>
+
+    <p>Y le dio un golpe al monitor.</p>
+
+    <div class="divider">⸻</div>
+
+    <p>El monitor no existió más. La mesa no existió más. La pared detrás de la mesa tomó una decisión rápida y dejó de ser pared. El departamento del vecino del lado recibió a Matías a través de lo que hasta hace un segundo había sido una pared estructural y ahora era una sugerencia arquitectónica. El departamento del vecino del otro lado tampoco sobrevivió al razonamiento físico del momento. El edificio completo consideró sus opciones durante aproximadamente medio segundo y decidió que ya había cumplido con su propósito histórico.</p>
+
+    <p>Matías quedó de pie entre los escombros, las venas bajando gradualmente al nivel 1, la mandíbula en su posición habitual.</p>
+
+    <div class="dialogue">
+      <p>—Vegano —repitió, como conclusión.</p>
+    </div>
+
+    <p>Y se fue a buscar departamento.</p>
+
+    <div class="noticia">
+      <span class="noticia-medio">📺 Canal 13 — Edición nocturna</span>
+      <p>"Terremoto localizado destruye tres edificios en sector oriente. Autoridades investigan."</p>
+    </div>
+
+    <div class="noticia">
+      <span class="noticia-medio">📰 El Mercurio — Al día siguiente</span>
+      <p>"Farkas lo pierde todo: los tres edificios siniestrados eran de su propiedad."</p>
+      <div class="farkas-cita">Farkas apareció brevemente en pantalla, corbata habitual, ojos de alguien que ha procesado demasiado en muy poco tiempo: <em>"Nos vamos a recuperar."</em></div>
+    </div>
+
+    <div class="page-num">— III —</div>
+  </div>
+
+  <!-- IV: EL IMPERIO DE LOS DEPARTAMENTOS VACÍOS -->
+  <div class="page">
+    <h2>IV. El Imperio de los Departamentos Vacíos</h2>
+
+    <p>Buscar departamento resultó ser más complicado de lo esperado.</p>
+
+    <p>El primer departamento que Matías fue a ver estaba en el quinto piso de un edificio del centro. La corredora le había dicho que llevaba tres semanas vacío. Ideal. Disponible de inmediato. Matías tocó el timbre. Nadie respondió. Probó la manilla. La puerta estaba abierta. Entró.</p>
+
+    <p>En el living, sentado en el suelo con la laptop abierta y la cámara encendida, había un hombre con una barba que no debería ser posible fuera de un contexto bíblico.</p>
+
+    <div class="dialogue">
+      <p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Hoy veremos liderazgo situacional. ¿Qué vende un jefe? No vende autoridad. Vende <strong>confianza</strong>. <span class="plop">—CLOP—</span> ¿Ya?</p>
+      <p>Las venas de Matías subieron al nivel 2.</p>
+      <p>—Profe —dijo Matías.</p>
+      <p>—Un momento. <span class="plop">—plop—</span> <strong>Franco</strong>, empieza tú. ¿Ya?</p>
+      <p>—Presente —dijo Franco desde algún punto del tiempo.</p>
+    </div>
+
+    <p>Matías salió del departamento. Bajó las escaleras. Fue a ver el siguiente.</p>
+
+    <div class="divider">⸻</div>
+
+    <p>El segundo departamento, piso doce, vista al parque. La corredora juró que llevaba un mes sin arrendatario. La puerta estaba abierta. En el suelo: laptop, cámara encendida, barba.</p>
+
+    <div class="dialogue">
+      <p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Hoy veremos trabajo en equipo. ¿Qué vende la colaboración? No vende esfuerzo. Vende <strong>sinergia</strong>. <span class="plop">—CLOP—</span> ¿Ya?</p>
+      <p>—Vende esfuerzo —dijo Matías desde la puerta, por reflejo. Nivel 2 y medio.</p>
+      <p>—Matías. Llegas tarde. <span class="plop">—clop—</span> ¿Ya?</p>
+    </div>
+
+    <p>Matías cerró la puerta. El tercero, el cuarto y el quinto tenían exactamente la misma situación con variaciones menores: distinto living, distinta caja de mudanza de fondo, mismo profesor, misma barba, mismo micrófono peligrosamente cerca, mismo Franco respondiendo presente desde una coordenada temporal no especificada.</p>
+
+    <p>En el sexto departamento Marcelo enseñaba desde un estudio con una ventana que daba a un paisaje que geográficamente no correspondía a ningún lugar de la ciudad ni posiblemente del siglo.</p>
+
+    <div class="dialogue">
+      <p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Hoy veremos gestión del cambio. ¿Qué vende la incertidumbre? No vende caos. Vende <strong>oportunidad</strong>. ¿Ya?</p>
+      <p>—Vende caos —dijo Matías desde la puerta. Nivel 3. La ropa ajustada. Las paredes del pasillo considerando sus opciones.</p>
+      <p>—Matías. ¿Qué vende la perseverancia?</p>
+      <p>Matías miró el techo.</p>
+      <p>—Perseverancia —dijo Matías.</p>
+      <p><span class="plop">—PLOP—</span></p>
+      <p>—Exacto. <span class="plop">—CLOP—</span> ¿Ya?</p>
+    </div>
+
+    <p>Era la primera vez en dos semestres que Matías respondía bien. Ninguno de los dos lo celebró. Matías cerró la puerta y se fue a dormir al gimnasio, que era el único lugar que le quedaba y que técnicamente también estaba siendo usado por Marcelo los martes y jueves de tarde, pero al menos esas horas Matías tenía clase.</p>
+
+    <div class="page-num">— IV —</div>
+  </div>
+
+  <!-- V: LA VIDEOLLAMADA -->
+  <div class="page">
+    <h2>V. La Videollamada</h2>
+
+    <p>A mitad de semestre Marcelo anunció un trabajo grupal. Evaluación online. Presentación por videollamada. El grupo de Matías era de cuatro personas unidas por el criterio de que ningún otro grupo los quería. Matías por razones estructurales. Los otros tres por razones que preferían no mencionar.</p>
+
+    <p>La videollamada comenzó un jueves a las siete de la tarde. Marcelo apareció en pantalla desde un living con piso flotante, una lámpara de pie que no era suya, y al fondo una ventana con vista a lo que parecía ser el siglo XVII.</p>
+
+    <div class="dialogue">
+      <p>—<strong>Buenos días estimados estudiantes.</strong> <span class="plop">—PLOP—</span> Presentamos el trabajo. ¿Ya?</p>
+      <p>—Son las siete de la tarde, profe —dijo alguien.</p>
+      <p>—Para mí son las mañanas. <span class="plop">—clop—</span> ¿Ya?</p>
+    </div>
+
+    <p>Nadie preguntó de qué época era esa mañana. El grupo compartió pantalla. La presentación tenía diecisiete diapositivas. Matías había hecho tres. Las tres decían exactamente lo mismo con distinto tamaño de letra. La más grande tenía el texto en bold, caps lock, y un tamaño de fuente que el programa había intentado desaconsejar mediante una advertencia que Matías había cerrado con más fuerza de la necesaria.</p>
+
+    <p>Entonces Marcelo hizo lo que siempre hacía:</p>
+
+    <div class="dialogue">
+      <p>—<strong>Franco</strong>, empieza tú. ¿Ya?</p>
+    </div>
+
+    <p>Matías conocía ese nombre. Llevaba dos semestres escuchándolo. Cada clase, cada ejercicio, cada dinámica. <em>Franco</em>. Siempre primero. Una voz que respondía <em>presente</em> desde algún lugar que nunca era la misma sala ni el mismo año que Matías. Y entonces Franco apareció en pantalla.</p>
+
+    <div class="divider">⸻</div>
+
+    <p>El problema con Franco en una videollamada era geométrico. Franco no cabía en un encuadre estándar. La cámara captaba, dependiendo del ángulo, o su cara, o su torso, o parte de un hombro que por sí solo tenía más masa que tres de los otros participantes juntos. Franco había intentado alejarse para caber completo pero entonces la imagen pixelaba porque la distancia era demasiada para el ancho de banda disponible.</p>
+
+    <p>Finalmente Franco apareció en pantalla como un conjunto de regiones corporales que rotaban según lo que necesitara mostrar, como una transmisión satelital de un continente.</p>
+
+    <div class="dialogue">
+      <p>—Presente —dijo Franco.</p>
+    </div>
+
+    <p>Los parlantes de Matías vibraron con una frecuencia que hizo caer un cuadro de la pared y agrietó levemente el techo del vecino de abajo, que era de Farkas, aunque nadie lo sabía todavía.</p>
+
+    <p>Matías no dijo nada. Miraba la pantalla con una expresión que nadie le había visto antes. No era el nivel 1 ni el 2 ni el 3. Era algo más abajo incluso que el nivel 1. El nivel 0. Un estado que Matías no había tenido desde la infancia y que se parecía sospechosamente a la sorpresa genuina. Las venas habían desaparecido casi por completo.</p>
+
+    <div class="dialogue">
+      <p>—¿Qué tan pesado eres? —preguntó Matías, interrumpiendo la presentación.</p>
+      <p>—Los sismógrafos tienen una estimación —dijo Franco.</p>
+      <p>—¿Cuánto?</p>
+      <p>—Depende del día.</p>
+    </div>
+
+    <p>Las venas de Matías volvieron gradualmente. Nivel 1. Nivel 1 y medio. Nivel 2, mientras calculaba con la intuición de alguien que ha levantado un portaviones la masa total aproximada del objeto en pantalla.</p>
+
+    <div class="dialogue">
+      <p>—Enfoque en la presentación. <span class="plop">—PLOP—</span> ¿Qué vende vuestro proyecto? No vende datos. Vende <strong>narrativa</strong>. ¿Ya?</p>
+      <p>—Vende datos —dijo Matías, sin apartar los ojos de Franco.</p>
+      <p><span class="plop">—clop—</span></p>
+    </div>
+
+    <p>En un momento la conexión de Franco se cortó. Los parlantes emitieron un silencio más denso que el silencio normal, como si la ausencia de Franco pesara también. Luego Franco reconectó.</p>
+
+    <div class="dialogue">
+      <p>—Perdón. El router no soporta mi masa.</p>
+    </div>
+
+    <p>Nivel 2 y tres cuartos.</p>
+
+    <p>Al final de la videollamada Matías miró el papel donde había anotado. Tenía tres líneas:</p>
+
+    <div class="apunte">
+      <p>— Franco. Peso: indeterminado. Estimación: mucho.</p>
+      <p>— Router insuficiente.</p>
+      <p>— Levantar.</p>
+      <p class="apunte-final">Franco.</p>
+    </div>
+
+    <div class="dialogue">
+      <p>—Matías. <span class="plop">—PLOP—</span> ¿Qué vende la ambición?</p>
+      <p>Matías miró la pantalla. Miró el papel.</p>
+      <p>—Ambición —dijo Matías.</p>
+      <p>Marcelo lo miró durante cuatro segundos completos.</p>
+      <p>—Correcto. <span class="plop">—CLOP—</span> ¿Ya?</p>
+    </div>
+
+    <p>Era la segunda vez que Matías respondía bien. Esta vez Marcelo sí lo notó, aunque prefirió no mencionarlo porque habría arruinado el equilibrio del universo pedagógico que llevaba siglos construyendo.</p>
+
+    <div class="noticia">
+      <span class="noticia-medio">📺 Mega — Esa noche</span>
+      <p>"Farkas lo pierde todo, lo recupera y lo vuelve a perder: techo de edificio del sector colapsa por causas desconocidas."</p>
+      <div class="farkas-cita">Farkas, misma corbata, ojos con el brillo de alguien que ha normalizado lo que no debería normalizarse: <em>"Nos vamos a recuperar."</em> Un periodista le preguntó si tenía alguna teoría sobre la causa. Farkas miró a la cámara. <em>"Mala suerte"</em>, dijo. Y se fue.</div>
+    </div>
+
+    <div class="nota-final">
+      <p>En el gimnasio donde Matías dormía esa semana, un papel doblado descansaba sobre una mancuerna de doscientos kilos que usaba como almohada. Tenía una sola línea nueva, subrayada tres veces con una presión que había atravesado el papel y marcado levemente el metal:</p>
+      <p><strong>Franco.</strong></p>
+      <p>La mancuerna no dijo nada. Era lo más inteligente que podía hacer.</p>
+    </div>
+
+    <div class="page-num">— V —</div>
+  </div>
+
+  <!-- ACTO 2 HEADER -->
+  <div class="act-header acto2 page">
+    <span class="act-label">Acto II</span>
+    <div class="act-title">Joel</div>
+    <div class="act-subtitle">En el que un hombre muy correcto ayuda a todo el mundo y cobra veinte lucas</div>
+  </div>
+
+  <!-- I: JOEL -->
+  <div class="page">
+    <h2>I. Joel</h2>
+
+    <p>En el futuro consolidado del Imperio de Marcelo había un hombre llamado <strong>Joel</strong>. Era correcto. Puntual. Organizado. El tipo de persona que llega cinco minutos antes a todos lados y recuerda el cumpleaños de gente que ni siquiera le cae bien. Sonrisa permanente, ropa planchada, el pelo perfectamente ordenado de alguien que considera el desorden personal una declaración ideológica.</p>
+
+    <p>En el Imperio, Joel era lo que se podría llamar un ciudadano modelo. Asistía a sus clases, respondía correctamente, anotaba <em>"experiencia"</em> cuando correspondía, <em>"visión"</em> cuando era necesario, y <em>"transformación"</em> en los casos intermedios.</p>
+
+    <div class="dialogue">
+      <p>—¿Qué vende el Imperio? <span class="plop">—PLOP—</span></p>
+      <p>—Oportunidad —respondía Joel, con la sonrisa de alguien que lleva años practicando esa respuesta y ya ni siente los músculos.</p>
+      <p>—Correcto. <span class="plop">—CLOP—</span> ¿Ya?</p>
+    </div>
+
+    <p>Nadie en el Imperio cuestionaba nada. No porque estuvieran de acuerdo, sino porque:</p>
+
+    <div class="ley">
+      <span class="ley-titulo">Ley de Propuesta de Valor Negativa — Artículo Primero</span>
+      <p>"Cuestionar al Emperador es vender caos en lugar de visión, lo cual constituye un crimen contra la experiencia colectiva, sancionado con asistencia obligatoria a un seminario intensivo de tres días sobre liderazgo situacional."</p>
+      <p style="margin-top:0.6rem; font-size:0.85rem; opacity:0.7;">El seminario era dictado por Marcelo.</p>
+    </div>
+
+    <p>Nadie cuestionaba nada.</p>
+
+    <p>Lo que nadie sabía era que Joel llegaba a su casa, cerraba la puerta, apagaba la sonrisa como quien apaga una lámpara, se sentaba frente al computador, y abría un programa de edición de video. Llevaba tres años editando.</p>
+
+    <div class="canal-box">
+      <span class="canal-titulo">@MarceLOL &nbsp;·&nbsp; 400.000 seguidores en toda época con señal</span>
+      <div class="video-item">
+        <span class="video-views">4M vistas</span>
+        <span class="video-nombre">"Marcelo explica qué vende una rasuradora (se va a los 0:12)"</span>
+      </div>
+      <div class="video-item">
+        <span class="video-views">2.1M vistas</span>
+        <span class="video-nombre">"Marcelo da clase desde mi departamento (no sabe que lo grabé)"</span>
+      </div>
+      <div class="video-item">
+        <span class="video-views">1.8M vistas</span>
+        <span class="video-nombre">"—PLOP—" · 10 minutos de onomatopeyas sobre música prohibida por el Imperio</span>
+      </div>
+      <div class="video-item">
+        <span class="video-views">300K vistas</span>
+        <span class="video-nombre">"Mi compañero de trabajo rompió todo y me pagó 20 lucas"</span>
+      </div>
+    </div>
+
+    <p>Joel subía el video. Cerraba el programa. Volvía a encender la sonrisa. Y se iba a dormir.</p>
+
+    <div class="page-num">— I —</div>
+  </div>
+
+  <!-- II: EL TRABAJO CON MATÍAS -->
+  <div class="page">
+    <h2>II. El Trabajo con Matías</h2>
+
+    <p>Lo del trabajo con Matías era un capítulo aparte que Joel mencionaba únicamente cuando alguien le preguntaba directamente, y aún así con la economía de palabras de quien ha decidido que algunos recuerdos no merecen más oxígeno del estrictamente necesario.</p>
+
+    <p>Habían tenido que hacer un trabajo de investigación juntos. Presencial. Tres semanas.</p>
+
+    <p>La primera semana Matías rompió sin querer la silla donde se sentó, el escritorio donde apoyó los codos, y una ventana que simplemente estaba en el radio de un gesto explicativo. Joel documentó los daños con la serenidad de alguien que ya había decidido no cobrarlos porque cobrarlos implicaba tener esa conversación con Matías y esa conversación no valía ninguna cantidad de dinero.</p>
+
+    <p>La segunda semana Matías encontró un error en los datos que Joel había recopilado.</p>
+
+    <div class="dialogue">
+      <p>—Vegano —dijo Matías, mirando la pantalla.</p>
+    </div>
+
+    <p>Las venas subieron al nivel 3. El computador de Joel sobrevivió pero quedó con una grieta en la esquina superior derecha que el técnico describió como <em>"estructuralmente inexplicable"</em> y que Joel describió internamente como <em>"el costo de tener compañeros de trabajo"</em>.</p>
+
+    <p>La tercera semana entregaron el trabajo. Joel consideró que sobrevivir las tres semanas ya era en sí mismo una nota suficiente. La profesora les puso un seis.</p>
+
+    <div class="dialogue">
+      <p>—¿Cuánto te debo por los materiales? —preguntó Matías.</p>
+      <p>—Veinte lucas —dijo Joel.</p>
+      <p>Matías lo miró.</p>
+      <p>—¿Solo?</p>
+      <p>—Solo.</p>
+    </div>
+
+    <p>Matías le pagó, asintió, y se fue. Joel esperó a que se cerrara la puerta, apagó la sonrisa, y se quedó mirando la grieta en el computador durante cuatro minutos exactos. Luego abrió el programa de edición.</p>
+
+    <p>El video tuvo trescientas mil vistas. Joel las consideró justicia suficiente.</p>
+
+    <div class="page-num">— II —</div>
+  </div>
+
+  <!-- III: EL ATERRIZAJE -->
+  <div class="page">
+    <h2>III. El Aterrizaje</h2>
+
+    <p>Era un martes ordinario en la universidad cuando el suelo del patio central emitió un sonido que no correspondía a ningún evento sísmico conocido y se abrió un pliegue del tamaño aproximado de cuatro personas más una quinta que desapareció inmediatamente.</p>
+
+    <p>Joel, que estaba cruzando el patio con su mochila perfectamente organizada y su sonrisa perfectamente encendida, se detuvo.</p>
+
+    <p>Del pliegue cayeron, en este orden:</p>
+
+    <p><strong>Franco</strong>, que aterrizó con un impacto que agrietó el pavimento en un radio de cuatro metros, asustó a los pájaros del sector en un radio de cuatro kilómetros, y activó tres alarmas sísmicas del Imperio que ahora procesaban la situación con visible confusión institucional.</p>
+
+    <p><strong>Carlos</strong>, que aterrizó con la precisión de alguien que ha caído de lugares más complicados. Miró alrededor con calma. Evaluó el siglo. Determinó que había vivido peores.</p>
+
+    <p><strong>Tornillo</strong>, que aterrizó perfectamente vertical, como si el tiempo y el espacio le debieran esa consideración mínima. El peinado intacto. La columna impecable.</p>
+
+    <p><strong>Felipe</strong>, que aterrizó con una gracia que claramente había practicado frente al espejo aunque jurara que no, se acomodó el cabello con dos dedos y dijo:</p>
+
+    <div class="dialogue">
+      <p>—¿Qué época es esta?</p>
+    </div>
+
+    <p>Y <strong>el Peruano</strong>, que aterrizó mirando su laptop con expresión de quien lleva demasiado tiempo documentando cosas para sorprenderse de alguna, dijo:</p>
+
+    <div class="dialogue">
+      <p>—Llegamos, <strong>sí, no?</strong></p>
+    </div>
+
+    <p>El suelo tembló levemente.</p>
+
+    <div class="dialogue">
+      <p>—Para —dijeron los cuatro al mismo tiempo.</p>
+      <p>—Es involuntario —dijo el Peruano.</p>
+      <p>Procesó los datos. Un segundo de expresión. Luego neutralidad académica.</p>
+      <p>—Necesito recopilar datos. Modelos predictivos. Variables del Imperio. Hay demasiada información sin procesar. <strong>Sí, no?</strong></p>
+    </div>
+
+    <p>El suelo volvió a temblar.</p>
+
+    <div class="dialogue">
+      <p>—Que pares —dijo Carlos.</p>
+      <p>—Vuelvo —dijo el Peruano.</p>
+    </div>
+
+    <p>Y desapareció antes de que alguien pudiera decirle algo, lo cual era, en la historia del Peruano, el patrón más consistente de todos.</p>
+
+    <p>Los cuatro quedaron solos en el patio mirando el espacio donde había estado el Peruano con expresiones que compartían el mismo fondo: <em>esto ya nos ha pasado antes y seguirá pasando.</em></p>
+
+    <p>Joel los miraba desde tres metros de distancia con la sonrisa encendida y el cálculo interno ya en marcha.</p>
+
+    <div class="page-num">— III —</div>
+  </div>
+
+  <!-- IV: LAS LEYENDAS -->
+  <div class="page">
+    <h2>IV. Las Leyendas</h2>
+
+    <div class="dialogue">
+      <p>—Los conozco —dijo Joel, guiándolos hacia un lugar donde no los viera nadie—. Por las leyendas.</p>
+      <p>—¿Qué leyendas? —preguntó Carlos.</p>
+      <p>—El cuarteto que reparó el molino. El que construyó el trono del Emperador sin saberlo.</p>
+      <p>—Nosotros no construimos ningún trono —dijo Tornillo—. Reparamos el molino. Hay una diferencia técnica importante.</p>
+      <p>—Es lo mismo —dijo Joel.</p>
+      <p>Tornillo abrió la boca.</p>
+      <p>—No es el momento —dijo Carlos, sin mirarlo.</p>
+      <p>Tornillo la cerró.</p>
+      <p>—¿Cuánto tiempo ha pasado? —preguntó Felipe.</p>
+      <p>—Siglos. El Imperio lleva siglos. Todas las clases fueron reemplazadas por clases de Marcelo. Medicina, derecho, ingeniería, gastronomía, educación física. Todo termina con "¿Qué vende X? No vende Y. Vende Z. ¿Ya?"</p>
+      <p>—¿Educación física? —dijo Franco.</p>
+      <p>—"¿Qué vende un músculo? No vende fuerza. Vende <strong>disciplina</strong>." —recitó Joel—. El profesor de educación física renunció. Marcelo tomó también esa clase. Desde el molino. Con la cámara encendida. El micrófono rozando los labios durante toda la clase de cardio.</p>
+    </div>
+
+    <p>Franco procesó esto. Tres palomas alzaron vuelo.</p>
+
+    <div class="dialogue">
+      <p>—¿Nos pueden ayudar a adaptarnos? —preguntó Felipe—. No sabemos nada de esta época.</p>
+    </div>
+
+    <p>Joel sonrió. La sonrisa de alguien que acaba de escuchar exactamente lo que esperaba escuchar.</p>
+
+    <div class="dialogue">
+      <p>—Por supuesto —dijo Joel—. Con gusto.</p>
+    </div>
+
+    <div class="page-num">— IV —</div>
+  </div>
+
+  <!-- V: LA ADAPTACIÓN -->
+  <div class="page">
+    <h2>V. La Adaptación</h2>
+
+    <p>Durante los días siguientes Joel los guió por el futuro con la eficiencia organizada de alguien que tiene un precio en mente pero prefiere que el cliente lo descubra al final.</p>
+
+    <p>Les consiguió un departamento vacío que esa semana inexplicablemente no tenía a Marcelo adentro dando clases, lo cual era una anomalía estadística que Joel prefirió no investigar porque la respuesta probablemente era peor que la pregunta.</p>
+
+    <p>Carlos adaptó rápido. Preguntó tres cosas: si había bastones mejores que el suyo, si el café era tolerable, y si alguien había escrito una historia crítica del Imperio.</p>
+
+    <div class="dialogue">
+      <p>—Técnicamente no —dijo Joel—. Pero conozco un canal de videos muy bueno.</p>
+      <p>Carlos lo miró.</p>
+      <p>—¿Tuyo? —dijo Carlos.</p>
+      <p>—De un conocido —dijo Joel.</p>
+    </div>
+
+    <p>Tornillo adaptó perfectamente, lo cual Joel observó con una incomodidad que tardó dos días en identificar. Al tercer día lo entendió: Tornillo nunca cometía errores, respondía siempre en el momento exacto, y su peinado no se movía bajo ninguna condición atmosférica. Joel abrió la boca para decir algo al respecto. La cerró. Decidió que ese era un problema para después.</p>
+
+    <p>Franco adaptó a su manera, que consistía en existir con tanta presencia gravitacional que la época terminaba acomodándose a él. Los locales le ampliaban las puertas sin que él pidiera nada. Un sismógrafo del Imperio emitió una alerta menor cada vez que Franco bajaba las escaleras, que Joel desactivó desde su teléfono con la resignación de quien ha normalizado lo que no debería normalizarse.</p>
+
+    <div class="divider">⸻</div>
+
+    <p>Lo de la ropa ocurrió el segundo día. Joel los llevó a conseguir ropa de la época porque la del cuarteto generaba atención, lo cual en el Imperio era peligroso porque la atención llevaba a preguntas y las preguntas llevaban a formularios y los formularios llevaban a un seminario de tres días con Marcelo.</p>
+
+    <p>Carlos eligió rápido. Tornillo eligió con criterio técnico basado en funcionalidad y resistencia estructural. Franco eligió lo único que le quedaba en su talla, que le quedaba ajustada de todas formas, y el vendedor lo entregó con la expresión de alguien que va a contar esto el resto de su vida.</p>
+
+    <p>Felipe tomó su tiempo. Recorrió los percheros con la atención de alguien que está en su elemento, eligió varias prendas, y se fue a cambiar. Salió con una falda plisada verde oscuro, medias altas, y una blusa de cuello alto que combinaba con todo de una forma que claramente no había sido accidental.</p>
+
+    <p>Joel lo miró. Sonrisa encendida.</p>
+
+    <div class="dialogue">
+      <p>—Oye —dijo Joel—. Quedas muy bien. Solo una cosa, ¿no había nada para hombres en tu talla? Lo digo porque a veces las tallas de damas quedan raras en la espalda y—</p>
+      <p>—Quedé perfecto en la espalda —dijo Felipe, girando con total tranquilidad.</p>
+      <p>—Claro, claro. Es que yo lo digo por comodidad, no por otra cosa, hay cada vez más opciones masculinas muy modernas, muy cómodas, algo más—</p>
+      <p>—¿Más qué? —dijo Felipe, con la sonrisa de quien ya sabe exactamente lo que es.</p>
+      <p>—Neutro —dijo Joel.</p>
+      <p>—No —dijo Felipe.</p>
+      <p><em>Claro, claro</em> —dijo Joel.</p>
+    </div>
+
+    <p>Carlos, que había estado escuchando desde el perchero de bastones, no dijo nada. Pero miró a Joel con sus ojos de ocho siglos de experiencia acumulada durante exactamente tres segundos, que en Carlos equivalía a un discurso completo. Joel encendió la sonrisa un poco más fuerte y fue a pagar.</p>
+
+    <div class="page-num">— V —</div>
+  </div>
+
+  <!-- VI: LOS VIDEOS -->
+  <div class="page">
+    <h2>VI. Los Videos</h2>
+
+    <p>Lo de los videos fue un accidente que Joel había estado estadísticamente evitando durante tres años y que ocurrió de todas formas porque Felipe existía y la curiosidad de Felipe no respetaba carpetas sin contraseña.</p>
+
+    <p>Estaba usando el computador de Joel para buscar información sobre el Imperio cuando encontró la carpeta. No estaba escondida exactamente. Estaba en un lugar que decía <em>no tengo nada que ocultar</em> con una energía que decía exactamente lo contrario.</p>
+
+    <p>Felipe abrió un video. Era un YTPH de Marcelo. Voz editada, efectos de sonido, Marcelo preguntando <em>"¿qué vende la lealtad?"</em> y la edición respondiéndole con su propia voz distorsionada diciendo <em>"propiedades ajenas"</em>, luego <em>"departamentos de terceros"</em>, luego una lista de direcciones con años al lado que claramente eran registros de usurpación histórica del Imperio.</p>
+
+    <p>Felipe se rió. Abrió otro. Se rió más. Abrió el del <em>"Marcelo explica qué vende una rasuradora (se va a los 0:12)"</em> y se rió tan fuerte que Carlos asomó la cabeza desde el cuarto, Tornillo evaluó la situación desde el pasillo, y Franco generó una vibración al levantarse que hizo temblar los vasos de la cocina.</p>
+
+    <p>Joel entró al living en ese momento exacto, vio a Felipe frente a su computador, vio la carpeta abierta, y se quedó paralizado en la puerta con la sonrisa técnicamente encendida pero operando en modo de emergencia.</p>
+
+    <div class="dialogue">
+      <p>—Estos videos son muy buenos —dijo Felipe—. Los conozco todos. Los veo hace meses. El que los hace entiende demasiado bien a Marcelo para ser solo un fan. ¿Los hiciste tú?</p>
+      <p>Cuatro segundos.</p>
+      <p>—No —dijo Joel.</p>
+      <p>—Ah. —Felipe volvió a mirar la pantalla—. Lástima. Tienen muy buena edición. Y un conocimiento muy específico de qué departamentos ha ocupado Marcelo en qué siglos. Muy detallado todo.</p>
+      <p>—Hay gente muy dedicada en internet —dijo Joel.</p>
+      <p>—Sí —dijo Felipe—. <em>Claro, claro.</em></p>
+    </div>
+
+    <p>Joel fue a la cocina, apagó la sonrisa, se sirvió un vaso de agua, lo miró, lo dejó en el mesón, y se quedó mirando el techo durante tres minutos con la expresión de alguien que acaba de entender que Felipe es exactamente tan peligroso como parece.</p>
+
+    <p>Volvió al living con la sonrisa al máximo. No dijo nada más sobre el tema. Felipe tampoco. Pero desde ese momento, cada vez que Joel hacía un comentario sobre el pelo o la ropa de Felipe, Felipe lo miraba con una sonrisa que decía <em>yo sé exactamente quién eres</em> y Joel respondía con una sonrisa que decía <em>no puedes probarlo</em> y los dos seguían como si nada porque en el fondo los dos tenían razón.</p>
+
+    <div class="page-num">— VI —</div>
+  </div>
+
+  <!-- VII: LA CUENTA -->
+  <div class="page">
+    <h2>VII. La Cuenta</h2>
+
+    <p>Al cabo de una semana Joel los reunió en el living con la energía organizada de quien va a cerrar algo.</p>
+
+    <div class="dialogue">
+      <p>—Creo que ya están listos para moverse solos —dijo Joel.</p>
+      <p>—Gracias —dijo Carlos—. Genuinamente. Has sido de gran ayuda.</p>
+      <p>—Ha sido un placer —dijo Joel.</p>
+    </div>
+
+    <p>Pausa exacta de dos segundos.</p>
+
+    <div class="dialogue">
+      <p>—Son veinte lucas —dijo Joel.</p>
+    </div>
+
+    <p>Silencio.</p>
+
+    <div class="dialogue">
+      <p>—¿Veinte lucas? —dijo Tornillo—. ¿Por una semana entera de orientación, el departamento, la ropa, y todo lo demás?</p>
+      <p>—Veinte lucas —confirmó Joel.</p>
+      <p>—Eso es muy poco —dijo Tornillo.</p>
+      <p>—Lo sé —dijo Joel—. Soy así.</p>
+    </div>
+
+    <p>Carlos lo miró con la sabiduría de alguien que reconoce cuando alguien está siendo honesto de una forma que no termina de serlo del todo.</p>
+
+    <div class="dialogue">
+      <p>—¿Y qué más? —dijo Carlos.</p>
+      <p>Joel los miró. Miró a Franco. Miró a Tornillo. Miró a Felipe con su sonrisa de <em>yo sé quién eres</em>. Miró a Carlos con sus ojos de ocho siglos.</p>
+      <p>—Información sobre el Imperio —dijo Joel—. Para mis investigaciones.</p>
+      <p>—¿Qué investigaciones? —dijo Felipe.</p>
+      <p>—¿Tienes un canal de videos? —dijo Carlos.</p>
+      <p>—No —dijo Joel.</p>
+      <p>—<em>Claro, claro</em> —dijo Felipe.</p>
+    </div>
+
+    <p>Franco metió la mano en algún pliegue indefinido entre su ropa y su cuerpo, un lugar que geográficamente no debería existir pero que claramente existía porque Franco era Franco. Sacó las veinte lucas con la naturalidad de quien saca algo de un bolsillo normal. Nadie preguntó. Nadie quería saber.</p>
+
+    <p>Se las dio a Joel. Joel las recibió con la misma seriedad con que otros recibirían una fortuna.</p>
+
+    <div class="dialogue">
+      <p>—Gracias —dijo Joel.</p>
+      <p>—De nada —dijo Franco.</p>
+    </div>
+
+    <p>Tres palomas alzaron vuelo por el peso de los billetes cambiando de mano.</p>
+
+    <div class="nota-final">
+      <p>Afuera, en algún punto del Imperio consolidado, el molino seguía girando.</p>
+      <p>Y en algún punto del tiempo, sin que nadie lo llamara, Franco respondió presente. Como siempre. Como en toda época.</p>
+      <p>Joel lo anotó en su libreta con letra ordenada. Luego abrió el programa de edición.</p>
+      <p>El video se llamó <strong>"El cuarteto llegó. Veinte lucas bien invertidas."</strong></p>
+      <p>Lo dejó en borrador. Por ahora.</p>
+    </div>
+
+    <div class="page-num">— VII · Fin del Acto II —</div>
+  </div>
+
+</div>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const st = window.scrollY;
+    const dh = document.documentElement.scrollHeight - window.innerHeight;
+    document.getElementById('progress-bar').style.width = (st / dh * 100) + '%';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.page:not(.visible)').forEach(p => observer.observe(p));
+</script>
+</body>
+</html>
